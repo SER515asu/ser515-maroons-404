@@ -1,0 +1,30 @@
+# Ignore Gradle build output
+.gradle/
+buildOutput/
+build/
+
+# Keep Gradle wrapper files
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Logs and crash reports
+*.log
+*.stacktrace
+*.out
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE-specific files
+.idea/
+*.iml
+*.iws
+out/
+
+# Temporary files and directories
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
