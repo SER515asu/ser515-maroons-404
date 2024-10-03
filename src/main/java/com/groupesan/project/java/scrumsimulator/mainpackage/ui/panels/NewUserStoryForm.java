@@ -113,10 +113,11 @@ public class NewUserStoryForm extends JFrame implements BaseComponent {
         String name = nameField.getText();
         String description = descArea.getText();
         Double points = (Double) pointsCombo.getSelectedItem();
+        Double businessValue = (Double) pointsCombo.getSelectedItem();
 
         UserStoryFactory userStoryFactory = UserStoryFactory.getInstance();
 
-        UserStory userStory = userStoryFactory.createNewUserStory(name, description, points);
+        UserStory userStory = userStoryFactory.createNewUserStory(name, description, points, businessValue);
 
         userStory.doRegister();
 
