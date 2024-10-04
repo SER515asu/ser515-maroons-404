@@ -89,7 +89,7 @@ public class DemoPane extends JFrame implements BaseComponent {
         myJpanel.add(
                 productBacklogButton,
                 new CustomConstraints(
-                        3, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL
+                        3, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL
         ));
 
         myJpanel.add(
