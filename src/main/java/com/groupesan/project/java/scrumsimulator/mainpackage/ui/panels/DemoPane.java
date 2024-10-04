@@ -85,6 +85,12 @@ public class DemoPane extends JFrame implements BaseComponent {
                         form.setVisible(true);
                     }
                 });
+        JButton productBacklogButton = new JButton("Product Backlog");
+        myJpanel.add(
+                productBacklogButton,
+                new CustomConstraints(
+                        3, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL
+        ));
 
         myJpanel.add(
                 updateStoryStatusButton,
