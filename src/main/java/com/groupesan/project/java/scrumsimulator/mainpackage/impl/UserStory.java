@@ -30,7 +30,7 @@ public class UserStory extends ScrumObject {
      *
      * @param name the name for the user story
      * @param pointValue the point value for the story as a way of estimating required effort.
-     * @param businessValue the business value for the story as a way of estimating the importance of the user story.
+     * @param businessValue the business value for the story as a way of estimating the value of the story.
      */
     public UserStory(String name, double pointValue, double businessValue) {
         this.name = name;
@@ -47,7 +47,7 @@ public class UserStory extends ScrumObject {
      * @param description the description for the user story for better understanding of the
      *     requirements.
      * @param pointValue the point value for the story as a way of estimating required effort.
-     * @param businessValue the business value for the story as a way of estimating the importance of the user story.
+     * @param businessValue the business value for the story as a way of estimating the value of the story.
      */
     public UserStory(String name, String description, double pointValue, double businessValue) {
         this.name = name;
@@ -131,18 +131,18 @@ public class UserStory extends ScrumObject {
 
 
     /**
-     * Get the business value point of this UserStory
+     * Get the business value of this UserStory
      *
-     * @return the business value point of this UserStory as a double
+     * @return the business value of this UserStory as a double
      */
     public double getBusinessValue() {
         return businessValue;
     }
 
     /**
-     * Set the business value point of the User Story to the specified value
+     * Set the business value of the User Story to the specified value
      *
-     * @param businessValue the point value as a double. Usually an element of the fibonacci sequence.
+     * @param businessValue the business value as a double. Usually an element of the fibonacci sequence.
      */
     public void setBusinessValue(double businessValue) {
         this.businessValue = businessValue;
