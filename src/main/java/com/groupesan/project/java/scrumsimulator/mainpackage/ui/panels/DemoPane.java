@@ -6,6 +6,7 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.impl.ProductBacklog
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationManager;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationStateManager;
+import com.groupesan.project.java.scrumsimulator.mainpackage.ui.utils.WizardManager;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 
@@ -244,6 +245,15 @@ public class DemoPane extends JFrame implements BaseComponent {
                 new CustomConstraints(
                         2, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
+
+        newSimulationButton.addActionListener(
+                new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e){
+                                WizardManager.get().showSimulationWizard();
+                        }
+                }
+        );
 
         add(myJpanel);
     }

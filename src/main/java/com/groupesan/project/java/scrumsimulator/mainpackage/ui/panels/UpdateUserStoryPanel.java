@@ -41,7 +41,7 @@ public class UpdateUserStoryPanel extends JFrame {
         statusLabel.setBounds(10, 50, 120, 25);
         panel.add(statusLabel);
 
-        String[] statusOptions = {"new", "in progress", "ready for test", "completed"};
+        String[] statusOptions = {"new", "in progress", "ready for test", "completed", "blocker"};
         JComboBox<String> statusComboBox = new JComboBox<>(statusOptions);
         statusComboBox.setBounds(150, 50, 200, 25);
         panel.add(statusComboBox);

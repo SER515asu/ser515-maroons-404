@@ -1,20 +1,21 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui;
 
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import com.formdev.flatlaf.FlatLightLaf;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.ProductBacklogStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryFactory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels.DemoPane;
-import com.groupesan.project.java.scrumsimulator.mainpackage.ui.utils.WizardManager;
-import javax.swing.*;
 
 public class App {
     public App() {}
 
     public void start() {
         this.loadTheme();
-        WizardManager.get().showSimulationWizard();
         SwingUtilities.invokeLater(
                 new Runnable() {
                     @Override
