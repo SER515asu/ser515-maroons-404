@@ -149,7 +149,6 @@ public class UserStory extends ScrumObject {
     }
 
 
-
     /**
      * [NOT IMPLEMENTED] return all child scrum objects of this object. Usually this would be tasks.
      *
