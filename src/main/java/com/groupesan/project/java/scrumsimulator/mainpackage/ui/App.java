@@ -1,6 +1,7 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.ProductBacklogStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryFactory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
@@ -34,18 +35,19 @@ public class App {
                         .createNewUserStory("predefinedUS1", "description1", 1.0);
         a.doRegister();
         UserStoryStore.getInstance().addUserStory(a);
-
+        ProductBacklogStore.getInstance().addUserStoryInProductBacklog(a);
         UserStory b =
                 UserStoryFactory.getInstance()
                         .createNewUserStory("predefinedUS2", "description2", 2.0);
         b.doRegister();
         UserStoryStore.getInstance().addUserStory(b);
-
+        ProductBacklogStore.getInstance().addUserStoryInProductBacklog(b);
         UserStory c =
                 UserStoryFactory.getInstance()
                         .createNewUserStory("predefinedUS3", "description3", 3.0);
         c.doRegister();
         UserStoryStore.getInstance().addUserStory(c);
+        ProductBacklogStore.getInstance().addUserStoryInProductBacklog(c);
     }
 
     private void loadTheme() {
