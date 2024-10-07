@@ -1,15 +1,11 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.UserStoryStateManager;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class UpdateUserStoryPanel extends JFrame {
 
@@ -45,7 +41,7 @@ public class UpdateUserStoryPanel extends JFrame {
         statusLabel.setBounds(10, 50, 120, 25);
         panel.add(statusLabel);
 
-        String[] statusOptions = {"new", "in progress", "ready for test", "completed"};
+        String[] statusOptions = {"new", "in progress", "ready for test", "completed", "blocker"};
         JComboBox<String> statusComboBox = new JComboBox<>(statusOptions);
         statusComboBox.setBounds(150, 50, 200, 25);
         panel.add(statusComboBox);
