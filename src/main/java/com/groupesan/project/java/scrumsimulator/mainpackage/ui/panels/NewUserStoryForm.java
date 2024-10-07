@@ -116,7 +116,7 @@ public class NewUserStoryForm extends JFrame implements BaseComponent {
 
         UserStoryFactory userStoryFactory = UserStoryFactory.getInstance();
 
-        UserStory userStory = userStoryFactory.createNewUserStory(name, description, points);
+        UserStory userStory = userStoryFactory.createNewUserStory(name, description, points, "new");
 
         userStory.doRegister();
 
