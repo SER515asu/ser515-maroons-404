@@ -33,19 +33,19 @@ public class App {
     private void initializeUserStories() {
         UserStory a =
                 UserStoryFactory.getInstance()
-                        .createNewUserStory("predefinedUS1", "description1", 1.0);
+                        .createNewUserStory("predefinedUS1", "description1", 1.0, "backlog");
         a.doRegister();
         UserStoryStore.getInstance().addUserStory(a);
         ProductBacklogStore.getInstance().addUserStoryInProductBacklog(a);
         UserStory b =
                 UserStoryFactory.getInstance()
-                        .createNewUserStory("predefinedUS2", "description2", 2.0);
+                        .createNewUserStory("predefinedUS2", "description2", 2.0, "in progress");
         b.doRegister();
         UserStoryStore.getInstance().addUserStory(b);
         ProductBacklogStore.getInstance().addUserStoryInProductBacklog(b);
         UserStory c =
                 UserStoryFactory.getInstance()
-                        .createNewUserStory("predefinedUS3", "description3", 3.0);
+                        .createNewUserStory("predefinedUS3", "description3", 3.0, "completed");
         c.doRegister();
         UserStoryStore.getInstance().addUserStory(c);
         ProductBacklogStore.getInstance().addUserStoryInProductBacklog(c);

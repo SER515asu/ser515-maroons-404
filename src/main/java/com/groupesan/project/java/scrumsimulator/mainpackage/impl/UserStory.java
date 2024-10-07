@@ -21,6 +21,8 @@ public class UserStory extends ScrumObject {
 
     private Player owner;
 
+    private String status;
+
     // private ArrayList<Task> tasks;  TODO: implement tasks
 
     /**
@@ -44,11 +46,12 @@ public class UserStory extends ScrumObject {
      *     requirements.
      * @param pointValue the point value for the story as a way of estimating required effort.
      */
-    public UserStory(String name, String description, double pointValue) {
+    public UserStory(String name, String description, double pointValue, String status) {
         this.name = name;
         this.description = description;
         this.pointValue = pointValue;
         this.state = new UserStoryUnselectedState(this);
+        this.status = status;
     }
 
     protected void register() {
@@ -121,6 +124,14 @@ public class UserStory extends ScrumObject {
      */
     public void setPointValue(double pointValue) {
         this.pointValue = pointValue;
+    }
+
+    public String getStatus(){
+        return status;
+    }
+
+    public void setStatus(String status){
+        this.status = status;
     }
 
     /**
