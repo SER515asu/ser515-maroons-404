@@ -2,18 +2,20 @@ package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Player;
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.ScrumRole;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.ProductBacklogStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationManager;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationStateManager;
+import com.groupesan.project.java.scrumsimulator.mainpackage.ui.utils.WizardManager;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.util.List;
 
 public class DemoPane extends JFrame implements BaseComponent {
     private Player player = new Player("bob", new ScrumRole("demo"));
@@ -87,9 +89,35 @@ public class DemoPane extends JFrame implements BaseComponent {
         myJpanel.add(
                 productBacklogButton,
                 new CustomConstraints(
-                        3, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL
+                        3, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL
         ));
+        productBacklogButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
 
+                        //Open a new window on button click
+                        JFrame newWindow = new JFrame("Product Backlog");
+                        newWindow.setSize(300, 500);
+                        newWindow.setVisible(true);
+                        //Display all the user stories in the window
+
+                        JPanel panel = new JPanel();
+
+                        List<UserStory> listOfUserStories = ProductBacklogStore.getInstance().getUserStoriesFromProductBacklog();
+                        panel.setLayout(new GridLayout(listOfUserStories.size(), 1, 10, 10));
+                        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+                        for(UserStory userStory : listOfUserStories){
+                            JCheckBox chinButton = new JCheckBox(userStory.getName());
+                            panel.add(chinButton);
+                        }
+                        newWindow.add(panel);
+                        int heightForWindow = 90 + ( listOfUserStories.size() * 10 );
+                        newWindow.setSize(250,heightForWindow);
+                    }
+                }
+        );
         myJpanel.add(
                 updateStoryStatusButton,
                 new CustomConstraints(
@@ -204,11 +232,28 @@ public class DemoPane extends JFrame implements BaseComponent {
                     }
                 });
 
+        
         // Adding the button to the panel
         myJpanel.add(
                 SprintUIButton,
                 new CustomConstraints(
                         8, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
+
+        JButton newSimulationButton = new JButton("Create New Simulation");
+        myJpanel.add(
+                newSimulationButton,
+                new CustomConstraints(
+                        2, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
+
+
+        newSimulationButton.addActionListener(
+                new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e){
+                                WizardManager.get().showSimulationWizard();
+                        }
+                }
+        );
 
         add(myJpanel);
     }

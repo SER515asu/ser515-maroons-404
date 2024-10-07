@@ -1,10 +1,16 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 /** Reusable component that handles the core functionality of a wizard. */
@@ -14,7 +20,7 @@ public abstract class Wizard<T> extends JFrame implements BaseComponent {
     private WizardHandler<T> handler;
 
     public Wizard(WizardHandler<T> handler) {
-        this.pageNum = 1;
+        this.pageNum = 0;
         this.handler = handler;
         this.initDataModels();
         this.pages = new ArrayList<>(this.build());
