@@ -7,6 +7,7 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,31 +18,40 @@ import javax.swing.JPanel;
 
 public class UpdateUserStoryPanel extends JFrame {
 
-  public UpdateUserStoryPanel() {
-    init();
-  }
+    public UpdateUserStoryPanel() {
+        init();
+    }
 
-  private void init() {
-    setTitle("Update User Story Status");
-    setSize(400, 200);
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    private void init() {
+        setTitle("Update User Story Status");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-    JPanel panel = new JPanel();
-    placeComponents(panel);
-    add(panel);
+        JPanel panel = new JPanel();
+        placeComponents(panel);
+        add(panel);
 
-    setLocationRelativeTo(null);
-  }
+        setLocationRelativeTo(null);
+    }
 
-  private void placeComponents(JPanel panel) {
-    panel.setLayout(null);
+    private void placeComponents(JPanel panel) {
+        panel.setLayout(null);
 
-    JLabel userStoryLabel = new JLabel("Select User Story:");
-    userStoryLabel.setBounds(10, 20, 120, 25);
-    panel.add(userStoryLabel);
+        JLabel userStoryLabel = new JLabel("Select User Story:");
+        userStoryLabel.setBounds(10, 20, 120, 25);
+        panel.add(userStoryLabel);
 
         List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
-        JComboBox<String> userStoryComboBox = new JComboBox<>();
+        //display user story id and name
+        List<String> displayUserStories = new ArrayList<String>();
+        displayUserStories.add("");
+        for (UserStory userStory : userStories) {
+            String item = userStory.getId() + " : " + userStory.getName();
+            displayUserStories.add(item);
+        }
+
+        JComboBox<String> userStoryComboBox = new JComboBox<>(displayUserStories.toArray(new String[0]));
+        userStoryComboBox.setSelectedItem("Please select user story");
         userStoryComboBox.setBounds(150, 20, 200, 25);
         panel.add(userStoryComboBox);
 
@@ -50,30 +60,33 @@ public class UpdateUserStoryPanel extends JFrame {
         statusLabel.setBounds(10, 50, 120, 25);
         panel.add(statusLabel);
 
-    String[] statusOptions = {"new", "in progress", "ready for test", "completed", "blocker"};
-    JComboBox<String> statusComboBox = new JComboBox<>(statusOptions);
-    statusComboBox.setBounds(150, 50, 200, 25);
-    panel.add(statusComboBox);
+        String[] statusOptions = {"new", "in progress", "ready for test", "completed", "blocker"};
+        JComboBox<String> statusComboBox = new JComboBox<>(statusOptions);
+        statusComboBox.setBounds(150, 50, 200, 25);
+        panel.add(statusComboBox);
 
-    JButton updateButton = new JButton("Update Status");
-    updateButton.setBounds(150, 80, 150, 25);
-    panel.add(updateButton);
+        JButton updateButton = new JButton("Update Status");
+        updateButton.setBounds(150, 80, 150, 25);
+        panel.add(updateButton);
 
-    updateButton.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            String selectedUserStory = (String) userStoryComboBox.getSelectedItem();
-            String selectedStatus = (String) statusComboBox.getSelectedItem();
-
-            if (selectedUserStory != null && selectedStatus != null) {
-              UserStoryStateManager.updateUserStoryStatus(selectedUserStory, selectedStatus);
-              JOptionPane.showMessageDialog(null, "Status updated successfully!");
-              dispose();
-            } else {
-              JOptionPane.showMessageDialog(null, "Please select a User Story and Status");
-            }
-          }
-        });
-  }
+        updateButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String selectedUserStory = (String) userStoryComboBox.getSelectedItem();
+                        System.out.println(selectedUserStory);
+                        String selectedStatus = (String) statusComboBox.getSelectedItem();
+                        System.out.println(selectedStatus);
+                        if (selectedUserStory != null && selectedStatus != null) {
+                            int userStoryId = Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
+                            System.out.println(userStoryId);
+                            UserStoryStateManager.updateUserStoryStatus(userStoryId, selectedStatus);
+                            JOptionPane.showMessageDialog(null, "Status updated successfully!");
+                            dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please select a User Story and Status");
+                        }
+                    }
+                });
+    }
 }
