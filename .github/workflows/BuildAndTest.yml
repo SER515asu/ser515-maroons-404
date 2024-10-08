@@ -11,9 +11,8 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -31,6 +30,15 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+     
+    - name: Run Tests in Headless Mode
+      run: |
+        export _JAVA_OPTIONS="-Djava.awt.headless=true" 
+      env:
+        DISPLAY: :99  # Xvfb for headless UI tests
 
+    - name: Setup headless display (if needed for UI tests like JavaFX or Swing)
+      uses: GabrielBB/xvfb-action@v1.6
+   
     - name: Build and Test
       run: ./gradlew build test
