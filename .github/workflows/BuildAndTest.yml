@@ -33,5 +33,5 @@ jobs:
       run: ./gradlew build --stacktrace --info
       
     - name: Run tests with xvfb
-      run: xvfb-run ./gradlew test -Djava.awt.headless=true --stacktrace --info
+      run: xvfb-run ./gradlew test -Djava.awt.headless=false --stacktrace --info
 
