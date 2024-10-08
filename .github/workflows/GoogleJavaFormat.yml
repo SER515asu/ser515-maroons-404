@@ -1,53 +1,35 @@
-name: Run Google Java Format Check
+name: Check Google Java Format with Spotless
 
 on:
   push:
     branches:
       - main
-      - 'US_[0-9][0-9]' 
+      - 'US_[0-9][0-9]'
   pull_request:
     branches:
       - main
-      - 'US_[0-9][0-9]'  
+      - 'US_[0-9][0-9]'
 
 jobs:
-  check-format:
-    name: Check Java Format
+  spotless-check:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up JDK
+    - name: Set up JDK 21.0.4
       uses: actions/setup-java@v3
       with:
+        java-version: '21.0.4'
         distribution: 'temurin'
-        java-version: '21.0.4'  
 
-    - name: Cache Gradle Dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('*/.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+    - name: Grant execute permission for Gradle wrapper
+      run: chmod +x ./gradlew
 
-    - name: Install Dependencies
-      run: ./gradlew build --no-daemon
+    - name: Run Spotless Check for Google Java Format
+      run: ./gradlew spotlessCheck
 
-    - name: Run Google Java Format Check
-      run: ./gradlew spotlessCheck --no-daemon
-
-    - name: Generate Google Java Format Report
-      run: |
-        mkdir -p build/reports/GoogleJavaFormat
-        ./gradlew spotlessApply --no-daemon || true 
-
-    - name: Upload Report
-      uses: actions/upload-artifact@v3
-      with:
-        name: spotless-report
-        path: build/reports/GoogleJavaFormat
+    - name: Fail the job if formatting is incorrect
+      if: failure()
+      run: exit 1
