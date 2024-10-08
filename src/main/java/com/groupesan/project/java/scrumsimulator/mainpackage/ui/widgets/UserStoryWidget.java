@@ -29,7 +29,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
       new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          EditUserStoryForm form = new EditUserStoryForm(userStory,parentWindow);
+          EditUserStoryForm form = new EditUserStoryForm(userStory, parentWindow);
           form.setVisible(true);
 
           form.addWindowListener(
