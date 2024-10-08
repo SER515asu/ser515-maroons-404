@@ -14,24 +14,24 @@ import javax.swing.border.EmptyBorder;
  * @param <U> The data model type to use
  */
 public class ScrumLabeledComponent<T extends JComponent, U extends DataModel<?>> extends JPanel
-        implements BaseComponent {
+    implements BaseComponent {
 
-    protected final T component;
-    protected final String labelText;
-    protected final U model;
+  protected final T component;
+  protected final String labelText;
+  protected final U model;
 
-    public ScrumLabeledComponent(String labelText, T component, U model) {
-        this.labelText = labelText;
-        this.component = component;
-        this.model = model;
-        this.init();
-    }
+  public ScrumLabeledComponent(String labelText, T component, U model) {
+    this.labelText = labelText;
+    this.component = component;
+    this.model = model;
+    this.init();
+  }
 
-    @Override
-    public void init() {
-        setLayout(new BorderLayout());
-        setBorder(new EmptyBorder(2, 2, 2, 2));
-        add(new JLabel(this.labelText), BorderLayout.WEST);
-        add(component, BorderLayout.CENTER);
-    }
+  @Override
+  public void init() {
+    setLayout(new BorderLayout());
+    setBorder(new EmptyBorder(2, 2, 2, 2));
+    add(new JLabel(this.labelText), BorderLayout.WEST);
+    add(component, BorderLayout.CENTER);
+  }
 }
