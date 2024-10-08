@@ -1,12 +1,11 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
-import java.awt.Component;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import org.junit.jupiter.api.Test;
 
 public class DemoPaneTest {
