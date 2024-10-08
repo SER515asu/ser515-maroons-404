@@ -19,36 +19,36 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     JLabel desc;
     JLabel status;
 
-    // TODO: This is a non transient field and this class is supposed to be serializable. this needs
-    // to be dealt with before this object can be serialized
-    private UserStory userStory;
+  // TODO: This is a non transient field and this class is supposed to be serializable. this needs
+  // to be dealt with before this object can be serialized
+  private UserStory userStory;
 
-    ActionListener actionListener = e -> {};
+  ActionListener actionListener = e -> {};
 
-    MouseAdapter openEditDialog =
-            new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    EditUserStoryForm form = new EditUserStoryForm(userStory);
-                    form.setVisible(true);
+  MouseAdapter openEditDialog =
+      new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+          EditUserStoryForm form = new EditUserStoryForm(userStory);
+          form.setVisible(true);
 
-                    form.addWindowListener(
-                            new java.awt.event.WindowAdapter() {
-                                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                                    init();
-                                }
-                            });
+          form.addWindowListener(
+              new java.awt.event.WindowAdapter() {
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                  init();
                 }
-            };
+              });
+        }
+      };
 
-    public UserStoryWidget(UserStory userStory) {
-        this.userStory = userStory;
+  public UserStoryWidget(UserStory userStory) {
+    this.userStory = userStory;
 
-        this.init();
-    }
+    this.init();
+  }
 
-    public void init() {
-        removeAll();
+  public void init() {
+    removeAll();
 
         id = new JLabel(userStory.getId().toString());
         id.addMouseListener(openEditDialog);
@@ -60,9 +60,9 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         desc.addMouseListener(openEditDialog);
         status = new JLabel("new");
 
-        GridBagLayout myGridBagLayout = new GridBagLayout();
+    GridBagLayout myGridBagLayout = new GridBagLayout();
 
-        setLayout(myGridBagLayout);
+    setLayout(myGridBagLayout);
 
         add(
                 id,

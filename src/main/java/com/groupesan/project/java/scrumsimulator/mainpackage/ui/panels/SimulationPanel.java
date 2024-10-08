@@ -10,55 +10,55 @@ import javax.swing.JPanel;
 
 public class SimulationPanel extends JPanel implements BaseComponent {
 
-    private SimulationStateManager simulationStateManager;
-    private JButton startSimulationButton;
-    private JButton stopSimulationButton;
+  private SimulationStateManager simulationStateManager;
+  private JButton startSimulationButton;
+  private JButton stopSimulationButton;
 
-    /** Simulation Panel Initialization. */
-    protected SimulationPanel(SimulationStateManager simulationStateManager) {
-        this.simulationStateManager = simulationStateManager;
-        this.init();
+  /** Simulation Panel Initialization. */
+  protected SimulationPanel(SimulationStateManager simulationStateManager) {
+    this.simulationStateManager = simulationStateManager;
+    this.init();
+  }
+
+  @Override
+  public void init() {
+    startSimulationButton = new JButton("Start Simulation");
+    stopSimulationButton = new JButton("Stop Simulation");
+
+    stopSimulationButton.setVisible(false);
+
+    startSimulationButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            simulationStateManager.startSimulation();
+            JOptionPane.showMessageDialog(null, "Simulation started!");
+            updateButtonVisibility();
+          }
+        });
+
+    stopSimulationButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            simulationStateManager.stopSimulation();
+            JOptionPane.showMessageDialog(null, "Simulation stopped!");
+            updateButtonVisibility();
+          }
+        });
+
+    add(startSimulationButton);
+    add(stopSimulationButton);
+  }
+
+  private void updateButtonVisibility() {
+    // Show/hide buttons based on the simulation state
+    if (simulationStateManager.isRunning()) {
+      stopSimulationButton.setVisible(true);
+      startSimulationButton.setVisible(false);
+    } else {
+      stopSimulationButton.setVisible(false);
+      startSimulationButton.setVisible(true);
     }
-
-    @Override
-    public void init() {
-        startSimulationButton = new JButton("Start Simulation");
-        stopSimulationButton = new JButton("Stop Simulation");
-
-        stopSimulationButton.setVisible(false);
-
-        startSimulationButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        simulationStateManager.startSimulation();
-                        JOptionPane.showMessageDialog(null, "Simulation started!");
-                        updateButtonVisibility();
-                    }
-                });
-
-        stopSimulationButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        simulationStateManager.stopSimulation();
-                        JOptionPane.showMessageDialog(null, "Simulation stopped!");
-                        updateButtonVisibility();
-                    }
-                });
-
-        add(startSimulationButton);
-        add(stopSimulationButton);
-    }
-
-    private void updateButtonVisibility() {
-        // Show/hide buttons based on the simulation state
-        if (simulationStateManager.isRunning()) {
-            stopSimulationButton.setVisible(true);
-            startSimulationButton.setVisible(false);
-        } else {
-            stopSimulationButton.setVisible(false);
-            startSimulationButton.setVisible(true);
-        }
-    }
+  }
 }
