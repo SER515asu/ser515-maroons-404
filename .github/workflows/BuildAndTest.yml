@@ -25,9 +25,13 @@ jobs:
 
     - name: Set DISPLAY environment variable
       run: echo "DISPLAY=:0" >> $GITHUB_ENV
+
+    - name: Install xvfb
+      run: sudo apt-get install xvfb
         
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info
+      
+    - name: Run tests with xvfb
+      run: xvfb-run ./gradlew test -Djava.awt.headless=true --stacktrace --info
 
-    - name: Run tests in headless mode
-      run: ./gradlew test -Djava.awt.headless=true --stacktrace --info
