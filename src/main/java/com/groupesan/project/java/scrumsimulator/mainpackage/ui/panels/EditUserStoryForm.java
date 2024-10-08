@@ -20,102 +20,98 @@ import javax.swing.border.EmptyBorder;
 
 public class EditUserStoryForm extends JFrame implements BaseComponent {
 
-    Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
+  Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
 
-    public EditUserStoryForm(UserStory userStory) {
-        this.userStory = userStory;
-        this.init();
-    }
+  public EditUserStoryForm(UserStory userStory) {
+    this.userStory = userStory;
+    this.init();
+  }
 
-    private UserStory userStory;
+  private UserStory userStory;
 
-    private JTextField nameField = new JTextField();
-    private JTextArea descArea = new JTextArea();
-    private JComboBox<Double> pointsCombo = new JComboBox<>(pointsList);
+  private JTextField nameField = new JTextField();
+  private JTextArea descArea = new JTextArea();
+  private JComboBox<Double> pointsCombo = new JComboBox<>(pointsList);
 
-    public void init() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Edit User Story " + userStory.getId().toString());
-        setSize(400, 300);
+  public void init() {
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setTitle("Edit User Story " + userStory.getId().toString());
+    setSize(400, 300);
 
-        nameField = new JTextField(userStory.getName());
-        descArea = new JTextArea(userStory.getDescription());
-        pointsCombo = new JComboBox<>(pointsList);
-        pointsCombo.setSelectedItem(userStory.getPointValue());
+    nameField = new JTextField(userStory.getName());
+    descArea = new JTextArea(userStory.getDescription());
+    pointsCombo = new JComboBox<>(pointsList);
+    pointsCombo.setSelectedItem(userStory.getPointValue());
 
-        GridBagLayout myGridbagLayout = new GridBagLayout();
-        JPanel myJpanel = new JPanel();
-        myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        myJpanel.setLayout(myGridbagLayout);
+    GridBagLayout myGridbagLayout = new GridBagLayout();
+    JPanel myJpanel = new JPanel();
+    myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    myJpanel.setLayout(myGridbagLayout);
 
-        BorderLayout myBorderLayout = new BorderLayout();
+    BorderLayout myBorderLayout = new BorderLayout();
 
-        setLayout(myBorderLayout);
+    setLayout(myBorderLayout);
 
-        JLabel nameLabel = new JLabel("Name:");
-        myJpanel.add(
-                nameLabel,
-                new CustomConstraints(
-                        0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
-        myJpanel.add(
-                nameField,
-                new CustomConstraints(
-                        1, 0, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
+    JLabel nameLabel = new JLabel("Name:");
+    myJpanel.add(
+        nameLabel,
+        new CustomConstraints(0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        nameField,
+        new CustomConstraints(
+            1, 0, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-        JLabel descLabel = new JLabel("Description:");
-        myJpanel.add(
-                descLabel,
-                new CustomConstraints(
-                        0, 1, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL));
-        myJpanel.add(
-                new JScrollPane(descArea),
-                new CustomConstraints(
-                        1, 1, GridBagConstraints.EAST, 1.0, 0.3, GridBagConstraints.BOTH));
+    JLabel descLabel = new JLabel("Description:");
+    myJpanel.add(
+        descLabel,
+        new CustomConstraints(0, 1, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        new JScrollPane(descArea),
+        new CustomConstraints(1, 1, GridBagConstraints.EAST, 1.0, 0.3, GridBagConstraints.BOTH));
 
-        JLabel pointsLabel = new JLabel("Points:");
-        myJpanel.add(
-                pointsLabel,
-                new CustomConstraints(
-                        0, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
-        myJpanel.add(
-                pointsCombo,
-                new CustomConstraints(
-                        1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
+    JLabel pointsLabel = new JLabel("Points:");
+    myJpanel.add(
+        pointsLabel,
+        new CustomConstraints(0, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        pointsCombo,
+        new CustomConstraints(
+            1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-        JButton cancelButton = new JButton("Cancel");
+    JButton cancelButton = new JButton("Cancel");
 
-        cancelButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        dispose();
-                    }
-                });
+    cancelButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            dispose();
+          }
+        });
 
-        JButton submitButton = new JButton("Submit");
+    JButton submitButton = new JButton("Submit");
 
-        submitButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String name = nameField.getText();
-                        String description = descArea.getText();
-                        Double points = (Double) pointsCombo.getSelectedItem();
+    submitButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            String name = nameField.getText();
+            String description = descArea.getText();
+            Double points = (Double) pointsCombo.getSelectedItem();
 
-                        userStory.setName(name);
-                        userStory.setDescription(description);
-                        userStory.setPointValue(points);
-                        dispose();
-                    }
-                });
+            userStory.setName(name);
+            userStory.setDescription(description);
+            userStory.setPointValue(points);
+            dispose();
+          }
+        });
 
-        myJpanel.add(
-                cancelButton,
-                new CustomConstraints(0, 3, GridBagConstraints.EAST, GridBagConstraints.NONE));
-        myJpanel.add(
-                submitButton,
-                new CustomConstraints(1, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
+    myJpanel.add(
+        cancelButton,
+        new CustomConstraints(0, 3, GridBagConstraints.EAST, GridBagConstraints.NONE));
+    myJpanel.add(
+        submitButton,
+        new CustomConstraints(1, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
 
-        add(myJpanel);
-    }
+    add(myJpanel);
+  }
 }

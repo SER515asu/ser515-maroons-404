@@ -4,12 +4,12 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.core.ScrumIdentifie
 
 public class RoleIdentifier extends ScrumIdentifier {
 
-    public RoleIdentifier(int value) {
-        super(value);
-    }
+  public RoleIdentifier(int value) {
+    super(value);
+  }
 
-    @Override
-    public String toString() {
-        return "Role #" + this.id;
-    }
+  @Override
+  public String toString() {
+    return "Role #" + this.id;
+  }
 }

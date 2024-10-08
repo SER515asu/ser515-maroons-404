@@ -1,24 +1,24 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.impl;
 
 public class SprintFactory {
-    private static SprintFactory sprintFactory;
+  private static SprintFactory sprintFactory;
 
-    public static SprintFactory getSprintFactory() {
-        if (sprintFactory == null) {
-            sprintFactory = new SprintFactory();
-        }
-
-        return sprintFactory;
+  public static SprintFactory getSprintFactory() {
+    if (sprintFactory == null) {
+      sprintFactory = new SprintFactory();
     }
 
-    private int numSprints;
+    return sprintFactory;
+  }
 
-    private SprintFactory() {
-        numSprints = 0;
-    }
+  private int numSprints;
 
-    public Sprint createNewSprint(String name, String description, int length) {
-        Sprint newSprint = new Sprint(name, description, length, ++numSprints);
-        return newSprint;
-    }
+  private SprintFactory() {
+    numSprints = 0;
+  }
+
+  public Sprint createNewSprint(String name, String description, int length) {
+    Sprint newSprint = new Sprint(name, description, length, ++numSprints);
+    return newSprint;
+  }
 }

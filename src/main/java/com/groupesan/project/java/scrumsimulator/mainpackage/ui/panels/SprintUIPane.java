@@ -29,162 +29,142 @@ import javax.swing.border.EmptyBorder;
  */
 public class SprintUIPane extends JFrame implements BaseComponent {
 
-    private static final int MAX_IN_PROGRESS = 2;
+  private static final int MAX_IN_PROGRESS = 2;
 
-    public SprintUIPane(Player player) {
-        this.currentPlayer = player;
-        this.init();
+  public SprintUIPane(Player player) {
+    this.currentPlayer = player;
+    this.init();
+  }
+
+  private List<UserStoryWidget> widgets = new ArrayList<>();
+
+  private Player currentPlayer;
+
+  public void init() {
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setTitle("Select UserStories");
+    setSize(400, 300);
+
+    GridBagLayout myGridbagLayout = new GridBagLayout();
+    JPanel myJpanel = new JPanel();
+    myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    myJpanel.setLayout(myGridbagLayout);
+
+    JComboBox<String> selectComboBox = new JComboBox<>();
+    myJpanel.add(
+        selectComboBox,
+        new CustomConstraints(
+            0, 1, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
+
+    for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
+      // only display unselected states
+      if (userStory.getUserStoryState() instanceof UserStoryUnselectedState) {
+        selectComboBox.addItem(userStory.toString());
+        widgets.add(new UserStoryWidget(userStory));
+      }
     }
 
-    private List<UserStoryWidget> widgets = new ArrayList<>();
+    JPanel availableSubPanel = new JPanel();
+    availableSubPanel.setLayout(new GridBagLayout());
+    int i = 0;
+    for (UserStoryWidget widget : widgets) {
+      availableSubPanel.add(
+          widget,
+          new CustomConstraints(
+              0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
+    }
+    myJpanel.add(
+        new JScrollPane(availableSubPanel),
+        new CustomConstraints(
+            0, 0, GridBagConstraints.WEST, 1.0, 0.8, GridBagConstraints.HORIZONTAL));
 
-    private Player currentPlayer;
+    JPanel selectedSubPanel = new JPanel();
+    selectedSubPanel.setLayout(new GridBagLayout());
+    i = 0;
 
-    public void init() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Select UserStories");
-        setSize(400, 300);
+    for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
+      // only display unselected states
+      if (userStory.getUserStoryState() instanceof UserStorySelectedState
+          && currentPlayer.equals(userStory.getOwner())) {
+        selectedSubPanel.add(
+            new UserStoryWidget(userStory),
+            new CustomConstraints(
+                0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
+      }
+    }
+    myJpanel.add(
+        new JScrollPane(selectedSubPanel),
+        new CustomConstraints(
+            0, 4, GridBagConstraints.WEST, 1.0, 0.8, GridBagConstraints.HORIZONTAL));
 
-        GridBagLayout myGridbagLayout = new GridBagLayout();
-        JPanel myJpanel = new JPanel();
-        myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        myJpanel.setLayout(myGridbagLayout);
+    JLabel warningLabel = new JLabel("");
 
-        JComboBox<String> selectComboBox = new JComboBox<>();
-        myJpanel.add(
-                selectComboBox,
-                new CustomConstraints(
-                        0, 1, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        warningLabel,
+        new CustomConstraints(
+            0, 2, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
 
-        for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-            // only display unselected states
-            if (userStory.getUserStoryState() instanceof UserStoryUnselectedState) {
+    JButton SelectUSButton = new JButton("Select");
+    SelectUSButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            int ownedUS = 0;
+            for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
+              if (currentPlayer.equals(userStory.getOwner())) {
+                ownedUS++;
+              }
+            }
+
+            if (ownedUS >= MAX_IN_PROGRESS) {
+              warningLabel.setText("Only 2 US can be in progress at once!");
+              return;
+            }
+
+            for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
+              if (userStory.toString().equals(selectComboBox.getSelectedItem())) {
+                userStory.setOwner(currentPlayer);
+                userStory.changeState(new UserStorySelectedState(userStory));
+              }
+            }
+            selectComboBox.removeAllItems();
+            widgets.clear();
+            for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
+              // only display unselected states
+              if (userStory.getUserStoryState() instanceof UserStoryUnselectedState) {
                 selectComboBox.addItem(userStory.toString());
                 widgets.add(new UserStoryWidget(userStory));
+              }
             }
-        }
 
-        JPanel availableSubPanel = new JPanel();
-        availableSubPanel.setLayout(new GridBagLayout());
-        int i = 0;
-        for (UserStoryWidget widget : widgets) {
-            availableSubPanel.add(
-                    widget,
-                    new CustomConstraints(
-                            0,
-                            i++,
-                            GridBagConstraints.WEST,
-                            1.0,
-                            0.1,
-                            GridBagConstraints.HORIZONTAL));
-        }
-        myJpanel.add(
-                new JScrollPane(availableSubPanel),
-                new CustomConstraints(
-                        0, 0, GridBagConstraints.WEST, 1.0, 0.8, GridBagConstraints.HORIZONTAL));
+            availableSubPanel.removeAll();
+            int i = 0;
+            for (UserStoryWidget widget : widgets) {
+              availableSubPanel.add(
+                  widget,
+                  new CustomConstraints(
+                      0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
+            }
 
-        JPanel selectedSubPanel = new JPanel();
-        selectedSubPanel.setLayout(new GridBagLayout());
-        i = 0;
-
-        for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-            // only display unselected states
-            if (userStory.getUserStoryState() instanceof UserStorySelectedState
-                    && currentPlayer.equals(userStory.getOwner())) {
+            selectedSubPanel.removeAll();
+            i = 0;
+            for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
+              // only display unselected states
+              if (userStory.getUserStoryState() instanceof UserStorySelectedState
+                  && currentPlayer.equals(userStory.getOwner())) {
                 selectedSubPanel.add(
-                        new UserStoryWidget(userStory),
-                        new CustomConstraints(
-                                0,
-                                i++,
-                                GridBagConstraints.WEST,
-                                1.0,
-                                0.1,
-                                GridBagConstraints.HORIZONTAL));
+                    new UserStoryWidget(userStory),
+                    new CustomConstraints(
+                        0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
+              }
             }
-        }
-        myJpanel.add(
-                new JScrollPane(selectedSubPanel),
-                new CustomConstraints(
-                        0, 4, GridBagConstraints.WEST, 1.0, 0.8, GridBagConstraints.HORIZONTAL));
+          }
+        });
+    myJpanel.add(
+        SelectUSButton,
+        new CustomConstraints(
+            0, 3, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
 
-        JLabel warningLabel = new JLabel("");
-
-        myJpanel.add(
-                warningLabel,
-                new CustomConstraints(
-                        0, 2, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
-
-        JButton SelectUSButton = new JButton("Select");
-        SelectUSButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int ownedUS = 0;
-                        for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-                            if (currentPlayer.equals(userStory.getOwner())) {
-                                ownedUS++;
-                            }
-                        }
-
-                        if (ownedUS >= MAX_IN_PROGRESS) {
-                            warningLabel.setText("Only 2 US can be in progress at once!");
-                            return;
-                        }
-
-                        for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-                            if (userStory.toString().equals(selectComboBox.getSelectedItem())) {
-                                userStory.setOwner(currentPlayer);
-                                userStory.changeState(new UserStorySelectedState(userStory));
-                            }
-                        }
-                        selectComboBox.removeAllItems();
-                        widgets.clear();
-                        for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-                            // only display unselected states
-                            if (userStory.getUserStoryState() instanceof UserStoryUnselectedState) {
-                                selectComboBox.addItem(userStory.toString());
-                                widgets.add(new UserStoryWidget(userStory));
-                            }
-                        }
-
-                        availableSubPanel.removeAll();
-                        int i = 0;
-                        for (UserStoryWidget widget : widgets) {
-                            availableSubPanel.add(
-                                    widget,
-                                    new CustomConstraints(
-                                            0,
-                                            i++,
-                                            GridBagConstraints.WEST,
-                                            1.0,
-                                            0.1,
-                                            GridBagConstraints.HORIZONTAL));
-                        }
-
-                        selectedSubPanel.removeAll();
-                        i = 0;
-                        for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-                            // only display unselected states
-                            if (userStory.getUserStoryState() instanceof UserStorySelectedState
-                                    && currentPlayer.equals(userStory.getOwner())) {
-                                selectedSubPanel.add(
-                                        new UserStoryWidget(userStory),
-                                        new CustomConstraints(
-                                                0,
-                                                i++,
-                                                GridBagConstraints.WEST,
-                                                1.0,
-                                                0.1,
-                                                GridBagConstraints.HORIZONTAL));
-                            }
-                        }
-                    }
-                });
-        myJpanel.add(
-                SelectUSButton,
-                new CustomConstraints(
-                        0, 3, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
-
-        add(myJpanel);
-    }
+    add(myJpanel);
+  }
 }
