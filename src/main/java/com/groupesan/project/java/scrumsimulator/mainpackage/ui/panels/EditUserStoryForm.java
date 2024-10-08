@@ -1,6 +1,8 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
+import com.groupesan.project.java.scrumsimulator.mainpackage.core.User;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 import java.awt.BorderLayout;
@@ -8,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,9 +24,10 @@ import javax.swing.border.EmptyBorder;
 public class EditUserStoryForm extends JFrame implements BaseComponent {
 
   Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
-
-  public EditUserStoryForm(UserStory userStory) {
+  private UserStoryListPane parentWindow = null;
+  public EditUserStoryForm(UserStory userStory,UserStoryListPane parentWindow) {
     this.userStory = userStory;
+    this.parentWindow = parentWindow;
     this.init();
   }
 
@@ -104,14 +108,47 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
             dispose();
           }
         });
+    JButton deleteButton = new JButton("Delete");
+    deleteButton.addActionListener(
+            new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
 
+                    System.out.println("delete button clicked");
+                    System.out.println("User story to be deleted is :" + userStory.getId().toString());
+
+                    List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
+                    System.out.println("Before deleting");
+                    for(UserStory displayUserStories : userStories){
+                        System.out.println(displayUserStories.getId().toString());
+                    }
+                    int index =-1;
+                    for(UserStory us : userStories) {
+                        if(us.getId().equals(userStory.getId())) {
+                            System.out.println("found the user story to be deleted");
+                            index = userStories.indexOf(us);
+                            break;
+                        }
+                    }
+                    userStories.remove(index);
+                    System.out.println("After deleting");
+                    for(UserStory displayUserStories : userStories){
+                        System.out.println(displayUserStories.getId().toString());
+                    }
+                    UserStoryStore.getInstance().setUserStories(userStories);
+                    dispose();
+                    parentWindow.closeWindow();
+                }
+            }
+    );
     myJpanel.add(
         cancelButton,
         new CustomConstraints(0, 3, GridBagConstraints.EAST, GridBagConstraints.NONE));
     myJpanel.add(
         submitButton,
         new CustomConstraints(1, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
-
+    myJpanel.add(
+            deleteButton,
+            new CustomConstraints(2, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
     add(myJpanel);
   }
 }
