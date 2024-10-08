@@ -111,7 +111,7 @@ spotbugs {
 // junit testing
 test {
     useJUnitPlatform()
-    systemProperty 'java.awt.headless', 'false' // headless for gui
+    systemProperty 'java.awt.headless', 'true' // headless for gui
 }
 
 // google java format

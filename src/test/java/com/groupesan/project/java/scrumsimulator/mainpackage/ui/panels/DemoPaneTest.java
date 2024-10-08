@@ -23,6 +23,7 @@ public class DemoPaneTest {
 
   @Test
   public void testNewSimulationButtonExistence() {
+
     DemoPane demoPane = new DemoPane();
     Component[] components = demoPane.getContentPane().getComponents();
     JPanel myJpanel = null;
