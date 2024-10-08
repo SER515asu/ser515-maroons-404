@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat
 plugins {
     id "com.github.spotbugs" version "4.8.0"
     id "checkstyle"
+    id 'com.diffplug.spotless' version '6.22.0'
 }
 
 apply plugin: 'application'
@@ -111,4 +112,11 @@ spotbugs {
 test {
     useJUnitPlatform()
     systemProperty 'java.awt.headless', 'false' // headless for gui
+}
+
+// google java format
+spotless {
+    java {
+        googleJavaFormat('1.17.0')
+    }
 }
