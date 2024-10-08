@@ -1,0 +1,53 @@
+name: Run Google Java Format Check
+
+on:
+  push:
+    branches:
+      - main
+      - 'US_[0-9][0-9]' 
+  pull_request:
+    branches:
+      - main
+      - 'US_[0-9][0-9]'  
+
+jobs:
+  check-format:
+    name: Check Java Format
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '21.0.4'  
+
+    - name: Cache Gradle Dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('*/.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
+    - name: Install Dependencies
+      run: ./gradlew build --no-daemon
+
+    - name: Run Google Java Format Check
+      run: ./gradlew spotlessCheck --no-daemon
+
+    - name: Generate Google Java Format Report
+      run: |
+        mkdir -p build/reports/GoogleJavaFormat
+        ./gradlew spotlessApply --no-daemon || true 
+
+    - name: Upload Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: spotless-report
+        path: build/reports/GoogleJavaFormat
