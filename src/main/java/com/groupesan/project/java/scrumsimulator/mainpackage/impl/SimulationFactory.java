@@ -4,20 +4,20 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.core.Simulation;
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Teacher;
 
 public class SimulationFactory {
-    private static SimulationFactory simulationFactory;
+  private static SimulationFactory simulationFactory;
 
-    public static SimulationFactory geSimulationFactory() {
-        if (simulationFactory == null) {
-            simulationFactory = new SimulationFactory();
-        }
-
-        return simulationFactory;
+  public static SimulationFactory geSimulationFactory() {
+    if (simulationFactory == null) {
+      simulationFactory = new SimulationFactory();
     }
 
-    private SimulationFactory() {}
+    return simulationFactory;
+  }
 
-    public Simulation createNewSimulation(String name, Teacher teacher) {
-        Simulation newSimulation = new Simulation(name, teacher, 0);
-        return newSimulation;
-    }
+  private SimulationFactory() {}
+
+  public Simulation createNewSimulation(String name, Teacher teacher) {
+    Simulation newSimulation = new Simulation(name, teacher, 0);
+    return newSimulation;
+  }
 }

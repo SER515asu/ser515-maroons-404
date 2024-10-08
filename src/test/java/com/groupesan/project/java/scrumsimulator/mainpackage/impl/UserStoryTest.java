@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class UserStoryTest {
-    private UserStory myUserStory;
+  private UserStory myUserStory;
 
     @BeforeEach
     public void setup() {
@@ -18,39 +18,38 @@ public class UserStoryTest {
                         .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0);
     }
 
-    @Test
-    public void testUserStoryUnregistered1() {
-        // modified from example code from Baeldung
-        // https://www.baeldung.com/junit-assert-exception
+  @Test
+  public void testUserStoryUnregistered1() {
+    // modified from example code from Baeldung
+    // https://www.baeldung.com/junit-assert-exception
 
-        Exception exception =
-                assertThrows(
-                        IllegalStateException.class,
-                        () -> {
-                            ScrumIdentifier id = myUserStory.getId();
-                        });
+    Exception exception =
+        assertThrows(
+            IllegalStateException.class,
+            () -> {
+              ScrumIdentifier id = myUserStory.getId();
+            });
 
-        String actualMessage = exception.getMessage();
+    String actualMessage = exception.getMessage();
 
-        assertEquals(
-                "This UserStory has not been registered and does not have an ID yet!",
-                actualMessage);
-    }
+    assertEquals(
+        "This UserStory has not been registered and does not have an ID yet!", actualMessage);
+  }
 
-    /** Test case to ensure that toString handles the unregistered state */
-    @Test
-    public void testUserStoryUnregistered2() {
-        String string = myUserStory.toString();
+  /** Test case to ensure that toString handles the unregistered state */
+  @Test
+  public void testUserStoryUnregistered2() {
+    String string = myUserStory.toString();
 
-        assertEquals("(unregistered) - predefinedUS1", string);
-    }
+    assertEquals("(unregistered) - predefinedUS1", string);
+  }
 
-    @Test
-    public void testUserStoryRegistered() {
-        myUserStory.doRegister();
+  @Test
+  public void testUserStoryRegistered() {
+    myUserStory.doRegister();
 
-        ScrumIdentifier id = myUserStory.getId();
+    ScrumIdentifier id = myUserStory.getId();
 
-        assertNotNull(id);
-    }
+    assertNotNull(id);
+  }
 }

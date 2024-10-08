@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat
 plugins {
     id "com.github.spotbugs" version "4.8.0"
     id "checkstyle"
+    id 'com.diffplug.spotless' version '6.22.0'
 }
 
 apply plugin: 'application'
@@ -35,6 +36,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation 'org.apache.commons:commons-lang3:3.13.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32' // Or a newer version that supports Java 22
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
 version = "0.1"
@@ -106,4 +110,11 @@ spotbugs {
 test {
     useJUnitPlatform()
     systemProperty 'java.awt.headless', 'true' // headless for gui
+}
+
+// google java format
+spotless {
+    java {
+        googleJavaFormat('1.17.0')
+    }
 }
