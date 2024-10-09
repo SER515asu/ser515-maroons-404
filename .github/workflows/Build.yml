@@ -1,4 +1,4 @@
-name: Build and Test Java Project
+name: Build Java Project
 
 on:
   push:
@@ -19,12 +19,11 @@ jobs:
       with:
         java-version: '21.0.4'
         distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
 
     - name: Grant execute permission for Gradle wrapper
       run: chmod +x ./gradlew
-
+       
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info
-
-    - name: Run tests in headless mode
-      run: ./gradlew test -Djava.awt.headless=true --stacktrace --info
