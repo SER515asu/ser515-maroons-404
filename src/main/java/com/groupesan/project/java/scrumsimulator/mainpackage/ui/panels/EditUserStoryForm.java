@@ -19,8 +19,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import lombok.Getter;
+import lombok.Setter;
 
-public class EditUserStoryForm extends JFrame implements BaseComponent {
+@Setter
+@Getter
+public class EditUserStoryForm implements BaseComponent {
 
   Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
   private UserStoryListPane parentWindow = null;
@@ -37,10 +41,16 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
   private JTextArea descArea = new JTextArea();
   private JComboBox<Double> pointsCombo = new JComboBox<>(pointsList);
 
+  private JButton submitButton;
+  private JButton deleteButton;
+  private JButton cancelButton;
+
   public void init() {
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setTitle("Edit User Story " + userStory.getId().toString());
-    setSize(400, 300);
+    JFrame frame = new JFrame();
+
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setTitle("Edit User Story " + userStory.getId().toString());
+    frame.setSize(400, 300);
 
     nameField = new JTextField(userStory.getName());
     descArea = new JTextArea(userStory.getDescription());
@@ -54,7 +64,7 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
 
     BorderLayout myBorderLayout = new BorderLayout();
 
-    setLayout(myBorderLayout);
+    frame.setLayout(myBorderLayout);
 
     JLabel nameLabel = new JLabel("Name:");
     myJpanel.add(
@@ -82,17 +92,17 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-    JButton cancelButton = new JButton("Cancel");
+    cancelButton = new JButton("Cancel");
 
     cancelButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            dispose();
+            frame.dispose();
           }
         });
 
-    JButton submitButton = new JButton("Submit");
+    submitButton = new JButton("Submit");
 
     submitButton.addActionListener(
         new ActionListener() {
@@ -105,10 +115,10 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
             userStory.setName(name);
             userStory.setDescription(description);
             userStory.setPointValue(points);
-            dispose();
+            frame.dispose();
           }
         });
-    JButton deleteButton = new JButton("Delete");
+    deleteButton = new JButton("Delete");
     deleteButton.addActionListener(
         new ActionListener() {
           public void actionPerformed(ActionEvent e) {
@@ -118,9 +128,9 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
 
             List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
             System.out.println("Before deleting");
-            for (UserStory displayUserStories : userStories) {
-              System.out.println(displayUserStories.getId().toString());
-            }
+            //                        for (UserStory displayUserStories : userStories) {
+            //                            System.out.println(displayUserStories.getId().toString());
+            //                        }
             int index = -1;
             for (UserStory us : userStories) {
               if (us.getId().equals(userStory.getId())) {
@@ -135,7 +145,7 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
               System.out.println(displayUserStories.getId().toString());
             }
             UserStoryStore.getInstance().setUserStories(userStories);
-            dispose();
+            frame.dispose();
             parentWindow.closeWindow();
           }
         });
@@ -148,6 +158,7 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
     myJpanel.add(
         deleteButton,
         new CustomConstraints(2, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
-    add(myJpanel);
+    frame.add(myJpanel);
+    frame.setVisible(true);
   }
 }

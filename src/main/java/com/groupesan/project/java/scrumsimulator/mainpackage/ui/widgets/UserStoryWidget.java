@@ -9,8 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class UserStoryWidget extends JPanel implements BaseComponent {
 
@@ -30,9 +29,8 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         @Override
         public void mouseClicked(MouseEvent e) {
           EditUserStoryForm form = new EditUserStoryForm(userStory, parentWindow);
-          form.setVisible(true);
-
-          form.addWindowListener(
+          JFrame frame = new JFrame();
+          frame.addWindowListener(
               new java.awt.event.WindowAdapter() {
                 public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                   init();
