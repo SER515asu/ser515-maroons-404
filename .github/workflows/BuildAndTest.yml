@@ -19,6 +19,8 @@ jobs:
       with:
         java-version: '21.0.4'
         distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
 
     - name: Grant execute permission for Gradle wrapper
       run: chmod +x ./gradlew
@@ -26,12 +28,16 @@ jobs:
     - name: Set DISPLAY environment variable
       run: echo "DISPLAY=:0" >> $GITHUB_ENV
 
-    - name: Install xvfb
-      run: sudo apt-get install xvfb
+    - name: Install xvfb and necessary libraries
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb libxrender1 libxtst6 libxi6 
         
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info
       
     - name: Run tests with xvfb
-      run: xvfb-run ./gradlew test -Djava.awt.headless=false --stacktrace --info
-
+      run: |
+        # Start xvfb and set DISPLAY variable explicitly
+        export DISPLAY=:99
+        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" ./gradlew test 
