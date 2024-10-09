@@ -21,27 +21,27 @@ import javax.swing.border.EmptyBorder;
 
 public class NewUserStoryForm extends JFrame implements BaseComponent {
 
-    Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
-    Double[] valueList = {0.0, 1.0, 3.0, 7.0, 11.0, 17.0, 23.0};
+  Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
+  Double[] valueList = {0.0, 1.0, 3.0, 7.0, 11.0, 17.0, 23.0};
 
   public NewUserStoryForm() {
     this.init();
   }
 
-    private JTextField nameField = new JTextField();
-    private JTextArea descArea = new JTextArea();
-    private JComboBox<Double> pointsCombo = new JComboBox<>(pointsList);
-    private JComboBox<Double> valueCombo = new JComboBox<>(valueList);
+  private JTextField nameField = new JTextField();
+  private JTextArea descArea = new JTextArea();
+  private JComboBox<Double> pointsCombo = new JComboBox<>(pointsList);
+  private JComboBox<Double> valueCombo = new JComboBox<>(valueList);
 
-    public void init() {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("New User Story");
-        setSize(500, 400);
+  public void init() {
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setTitle("New User Story");
+    setSize(500, 400);
 
-        nameField = new JTextField();
-        descArea = new JTextArea();
-        pointsCombo = new JComboBox<>(pointsList);
-        valueCombo = new JComboBox<>(valueList);
+    nameField = new JTextField();
+    descArea = new JTextArea();
+    pointsCombo = new JComboBox<>(pointsList);
+    valueCombo = new JComboBox<>(valueList);
 
     GridBagLayout myGridbagLayout = new GridBagLayout();
     JPanel myJpanel = new JPanel();
@@ -78,17 +78,16 @@ public class NewUserStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-        JLabel businessLabel = new JLabel("BusinessValue:");
-        myJpanel.add(
-                businessLabel,
-                new CustomConstraints(
-                        0, 3, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
-        myJpanel.add(
-                valueCombo,
-                new CustomConstraints(
-                        1, 3, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
+    JLabel businessLabel = new JLabel("BusinessValue:");
+    myJpanel.add(
+        businessLabel,
+        new CustomConstraints(0, 3, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        valueCombo,
+        new CustomConstraints(
+            1, 3, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-        JButton cancelButton = new JButton("Cancel");
+    JButton cancelButton = new JButton("Cancel");
 
     cancelButton.addActionListener(
         new ActionListener() {
@@ -108,25 +107,26 @@ public class NewUserStoryForm extends JFrame implements BaseComponent {
           }
         });
 
-        myJpanel.add(
-                cancelButton,
-                new CustomConstraints(0, 4, GridBagConstraints.EAST, GridBagConstraints.NONE));
-        myJpanel.add(
-                submitButton,
-                new CustomConstraints(1, 4, GridBagConstraints.WEST, GridBagConstraints.NONE));
+    myJpanel.add(
+        cancelButton,
+        new CustomConstraints(0, 4, GridBagConstraints.EAST, GridBagConstraints.NONE));
+    myJpanel.add(
+        submitButton,
+        new CustomConstraints(1, 4, GridBagConstraints.WEST, GridBagConstraints.NONE));
 
     add(myJpanel);
   }
 
-    public UserStory getUserStoryObject() {
-        String name = nameField.getText();
-        String description = descArea.getText();
-        Double points = (Double) pointsCombo.getSelectedItem();
-        Double businessValue = (Double) pointsCombo.getSelectedItem();
+  public UserStory getUserStoryObject() {
+    String name = nameField.getText();
+    String description = descArea.getText();
+    Double points = (Double) pointsCombo.getSelectedItem();
+    Double businessValue = (Double) pointsCombo.getSelectedItem();
 
     UserStoryFactory userStoryFactory = UserStoryFactory.getInstance();
 
-        UserStory userStory = userStoryFactory.createNewUserStory(name, description, points, businessValue);
+    UserStory userStory =
+        userStoryFactory.createNewUserStory(name, description, points, businessValue);
 
     userStory.doRegister();
 
