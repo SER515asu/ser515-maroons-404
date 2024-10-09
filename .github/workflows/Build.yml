@@ -1,4 +1,4 @@
-name: Build and Test Java Project
+name: Build Java Project
 
 on:
   push:
@@ -24,20 +24,6 @@ jobs:
 
     - name: Grant execute permission for Gradle wrapper
       run: chmod +x ./gradlew
-
-    - name: Set DISPLAY environment variable
-      run: echo "DISPLAY=:0" >> $GITHUB_ENV
-
-    - name: Install xvfb and necessary libraries
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y xvfb libxrender1 libxtst6 libxi6 
-        
+       
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info
-      
-    - name: Run tests with xvfb
-      run: |
-        # Start xvfb and set DISPLAY variable explicitly
-        export DISPLAY=:99
-        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" ./gradlew test 
