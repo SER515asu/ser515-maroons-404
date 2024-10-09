@@ -194,14 +194,11 @@ public class UserStory extends ScrumObject {
     return this.owner;
   }
 
-  @Override
   public String getName() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getName'");
+    return name;
   }
 
-  public UserStoryUnselectedState getUserStoryState() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getUserStoryState'");
+  public UserStoryState getUserStoryState() {
+    return state;
   }
 }
