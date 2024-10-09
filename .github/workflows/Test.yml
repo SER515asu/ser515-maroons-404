@@ -35,4 +35,6 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Run tests
+        env:
+          JAVA_TOOL_OPTIONS: "-Djava.awt.headless=false"
         run: ./gradlew test
