@@ -1,4 +1,5 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
+
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Player;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;

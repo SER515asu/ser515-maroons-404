@@ -21,13 +21,11 @@ public class UserStory extends ScrumObject {
 
   private Player owner;
 
-
-    private String status;
-
-    // private ArrayList<Task> tasks;  TODO: implement tasks
+  private String status;
 
   // private ArrayList<Task> tasks;  TODO: implement tasks
 
+  // private ArrayList<Task> tasks;  TODO: implement tasks
 
   /**
    * Creates a user story. Leaves the description as an empty string.
@@ -75,22 +73,21 @@ public class UserStory extends ScrumObject {
     return id;
   }
 
-
-    /**
-     * Creates a user story.
-     *
-     * @param name the name for the user story
-     * @param description the description for the user story for better understanding of the
-     *     requirements.
-     * @param pointValue the point value for the story as a way of estimating required effort.
-     */
-    public UserStory(String name, String description, double pointValue, String status) {
-        this.name = name;
-        this.description = description;
-        this.pointValue = pointValue;
-        this.state = new UserStoryUnselectedState(this);
-        this.status = status;
-    }
+  /**
+   * Creates a user story.
+   *
+   * @param name the name for the user story
+   * @param description the description for the user story for better understanding of the
+   *     requirements.
+   * @param pointValue the point value for the story as a way of estimating required effort.
+   */
+  public UserStory(String name, String description, double pointValue, String status) {
+    this.name = name;
+    this.description = description;
+    this.pointValue = pointValue;
+    this.state = new UserStoryUnselectedState(this);
+    this.status = status;
+  }
 
   /**
    * Sets the name of the User Story to the specified string
@@ -170,15 +167,13 @@ public class UserStory extends ScrumObject {
     this.state = state;
   }
 
-    public String getStatus(){
-        return status;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    public void setStatus(String status){
-        this.status = status;
-    }
-
-
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
   /**
    * Sets the owner of this UserStory to the specified player. This should be called whenever a
@@ -205,8 +200,8 @@ public class UserStory extends ScrumObject {
     throw new UnsupportedOperationException("Unimplemented method 'getName'");
   }
 
-public UserStoryUnselectedState getUserStoryState() {
+  public UserStoryUnselectedState getUserStoryState() {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getUserStoryState'");
-}
+  }
 }

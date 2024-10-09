@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 
 public class UserStoryWidget extends JPanel implements BaseComponent {
 
-    JLabel id;
-    JLabel points;
-    JLabel name;
-    JLabel desc;
-    JLabel status;
+  JLabel id;
+  JLabel points;
+  JLabel name;
+  JLabel desc;
+  JLabel status;
 
   // TODO: This is a non transient field and this class is supposed to be serializable. this needs
   // to be dealt with before this object can be serialized
@@ -50,39 +50,39 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
   public void init() {
     removeAll();
 
-        id = new JLabel(userStory.getId().toString());
-        id.addMouseListener(openEditDialog);
-        points = new JLabel(Double.toString(userStory.getPointValue()));
-        points.addMouseListener(openEditDialog);
-        name = new JLabel(userStory.getName());
-        name.addMouseListener(openEditDialog);
-        desc = new JLabel(userStory.getDescription());
-        desc.addMouseListener(openEditDialog);
-        status = new JLabel("new");
+    id = new JLabel(userStory.getId().toString());
+    id.addMouseListener(openEditDialog);
+    points = new JLabel(Double.toString(userStory.getPointValue()));
+    points.addMouseListener(openEditDialog);
+    name = new JLabel(userStory.getName());
+    name.addMouseListener(openEditDialog);
+    desc = new JLabel(userStory.getDescription());
+    desc.addMouseListener(openEditDialog);
+    status = new JLabel("new");
 
     GridBagLayout myGridBagLayout = new GridBagLayout();
 
     setLayout(myGridBagLayout);
 
-        add(
-                id,
-                new CustomConstraints(
-                        0, 0, GridBagConstraints.WEST, 0.1, 0.0, GridBagConstraints.HORIZONTAL));
-        add(
-                points,
-                new CustomConstraints(
-                        1, 0, GridBagConstraints.WEST, 0.1, 0.0, GridBagConstraints.HORIZONTAL));
-        add(
-                name,
-                new CustomConstraints(
-                        2, 0, GridBagConstraints.WEST, 0.2, 0.0, GridBagConstraints.HORIZONTAL));
-        add(
-                desc,
-                new CustomConstraints(
-                        3, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
-        add(
-                status,
-                 new CustomConstraints(
-                        4, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
-        }
+    add(
+        id,
+        new CustomConstraints(
+            0, 0, GridBagConstraints.WEST, 0.1, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        points,
+        new CustomConstraints(
+            1, 0, GridBagConstraints.WEST, 0.1, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        name,
+        new CustomConstraints(
+            2, 0, GridBagConstraints.WEST, 0.2, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        desc,
+        new CustomConstraints(
+            3, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        status,
+        new CustomConstraints(
+            4, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+  }
 }

@@ -22,41 +22,40 @@ public class App {
             // Initialize User Stories in helper function now
             initializeUserStories();
 
-                        // Load DemoPane
-                        DemoPane form = new DemoPane();
-                        form.setVisible(true);
-                    }
-                });
-    }
-
-    private void initializeUserStories() {
-        UserStory a =
-                UserStoryFactory.getInstance()
-                        .createNewUserStory("predefinedUS1", "description1", 1.0, "backlog");
-        a.doRegister();
-        UserStoryStore.getInstance().addUserStory(a);
-        ProductBacklogStore.getInstance().addUserStoryInProductBacklog(a);
-        UserStory b =
-                UserStoryFactory.getInstance()
-                        .createNewUserStory("predefinedUS2", "description2", 2.0, "in progress");
-        b.doRegister();
-        UserStoryStore.getInstance().addUserStory(b);
-        ProductBacklogStore.getInstance().addUserStoryInProductBacklog(b);
-        UserStory c =
-                UserStoryFactory.getInstance()
-                        .createNewUserStory("predefinedUS3", "description3", 3.0, "completed");
-        c.doRegister();
-        UserStoryStore.getInstance().addUserStory(c);
-        ProductBacklogStore.getInstance().addUserStoryInProductBacklog(c);
-    }
-
-    private void loadTheme() {
-        try {
-            // TODO support setting theme from a configuration file
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (UnsupportedLookAndFeelException e) {
-            throw new RuntimeException(e);
-        }
-    }
+            // Load DemoPane
+            DemoPane form = new DemoPane();
+            form.setVisible(true);
+          }
+        });
   }
 
+  private void initializeUserStories() {
+    UserStory a =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS1", "description1", 1.0, "backlog");
+    a.doRegister();
+    UserStoryStore.getInstance().addUserStory(a);
+    ProductBacklogStore.getInstance().addUserStoryInProductBacklog(a);
+    UserStory b =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS2", "description2", 2.0, "in progress");
+    b.doRegister();
+    UserStoryStore.getInstance().addUserStory(b);
+    ProductBacklogStore.getInstance().addUserStoryInProductBacklog(b);
+    UserStory c =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS3", "description3", 3.0, "completed");
+    c.doRegister();
+    UserStoryStore.getInstance().addUserStory(c);
+    ProductBacklogStore.getInstance().addUserStoryInProductBacklog(c);
+  }
+
+  private void loadTheme() {
+    try {
+      // TODO support setting theme from a configuration file
+      UIManager.setLookAndFeel(new FlatLightLaf());
+    } catch (UnsupportedLookAndFeelException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}
