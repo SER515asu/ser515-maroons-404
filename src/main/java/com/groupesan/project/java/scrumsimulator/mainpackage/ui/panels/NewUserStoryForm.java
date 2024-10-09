@@ -112,11 +112,7 @@ public class NewUserStoryForm extends JFrame implements BaseComponent {
 
     UserStoryFactory userStoryFactory = UserStoryFactory.getInstance();
 
-<<<<<<< HEAD
         UserStory userStory = userStoryFactory.createNewUserStory(name, description, points, "new");
-=======
-    UserStory userStory = userStoryFactory.createNewUserStory(name, description, points);
->>>>>>> origin/conflict_resolve
 
     userStory.doRegister();
 

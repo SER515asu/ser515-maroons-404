@@ -21,13 +21,13 @@ public class UserStory extends ScrumObject {
 
   private Player owner;
 
-<<<<<<< HEAD
+
     private String status;
 
     // private ArrayList<Task> tasks;  TODO: implement tasks
-=======
+
   // private ArrayList<Task> tasks;  TODO: implement tasks
->>>>>>> origin/conflict_resolve
+
 
   /**
    * Creates a user story. Leaves the description as an empty string.
@@ -75,7 +75,7 @@ public class UserStory extends ScrumObject {
     return id;
   }
 
-<<<<<<< HEAD
+
     /**
      * Creates a user story.
      *
@@ -91,16 +91,6 @@ public class UserStory extends ScrumObject {
         this.state = new UserStoryUnselectedState(this);
         this.status = status;
     }
-=======
-  /**
-   * Get the name for this UserStory
-   *
-   * @return the name of this UserStory as a string
-   */
-  public String getName() {
-    return name;
-  }
->>>>>>> origin/conflict_resolve
 
   /**
    * Sets the name of the User Story to the specified string
@@ -180,7 +170,6 @@ public class UserStory extends ScrumObject {
     this.state = state;
   }
 
-<<<<<<< HEAD
     public String getStatus(){
         return status;
     }
@@ -189,24 +178,7 @@ public class UserStory extends ScrumObject {
         this.status = status;
     }
 
-    /**
-     * [NOT IMPLEMENTED] return all child scrum objects of this object. Usually this would be tasks.
-     *
-     * @return a List containing all child ScrumObjects of this UserStory
-     */
-    public List<ScrumObject> getChildren() {
-        return new ArrayList<>(); // TODO: implement tasks
-    }
-=======
-  /**
-   * Get the UserStoryState of this UserStory. Unselected, completed, etc.
-   *
-   * @return a UserStoryState object containing the state for this UserStory
-   */
-  public UserStoryState getUserStoryState() {
-    return state;
-  }
->>>>>>> origin/conflict_resolve
+
 
   /**
    * Sets the owner of this UserStory to the specified player. This should be called whenever a
@@ -226,4 +198,15 @@ public class UserStory extends ScrumObject {
   public Player getOwner() {
     return this.owner;
   }
+
+  @Override
+  public String getName() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getName'");
+  }
+
+public UserStoryUnselectedState getUserStoryState() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getUserStoryState'");
+}
 }
