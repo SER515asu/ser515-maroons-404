@@ -26,5 +26,13 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info
 
-    - name: Run tests in headless mode
-      run: ./gradlew test -Djava.awt.headless=false --stacktrace --info
+    - name: Run tests with xvfb
+      run: |
+        xvfb-run --auto-servernum --server-args='-screen 0 1024x768x24' ./gradlew test
+      env:
+        DISPLAY: ":99" 
+
+    - name: Set headless mode for tests
+      run: |
+        export JAVA_OPTS="-Djava.awt.headless=true"
+        ./gradlew test
