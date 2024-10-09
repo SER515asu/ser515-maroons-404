@@ -1,4 +1,4 @@
-name: Build and Test Java Project
+name: Build Java Project
 
 on:
   push:
@@ -19,20 +19,11 @@ jobs:
       with:
         java-version: '21.0.4'
         distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
 
     - name: Grant execute permission for Gradle wrapper
       run: chmod +x ./gradlew
-
+       
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info
-
-    - name: Run tests with xvfb
-      run: |
-        xvfb-run --auto-servernum --server-args='-screen 0 1024x768x24' ./gradlew test
-      env:
-        DISPLAY: ":99" 
-
-    - name: Set headless mode for tests
-      run: |
-        export JAVA_OPTS="-Djava.awt.headless=true"
-        ./gradlew test
