@@ -86,7 +86,6 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
   }
 
   public void closeWindow() {
-    System.out.println("Closing 'User story list' window");
     dispose();
   }
 }
