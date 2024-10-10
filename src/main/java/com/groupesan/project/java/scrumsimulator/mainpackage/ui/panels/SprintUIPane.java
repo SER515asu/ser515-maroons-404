@@ -84,7 +84,7 @@ public class SprintUIPane extends JFrame implements BaseComponent {
 
     for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
       // only display unselected states
-      if (userStory.getUserStoryState() instanceof UserStorySelectedState
+      if (userStory.getUserStoryState() instanceof UserStoryUnselectedState
           && currentPlayer.equals(userStory.getOwner())) {
         selectedSubPanel.add(
             new UserStoryWidget(userStory),
@@ -150,7 +150,7 @@ public class SprintUIPane extends JFrame implements BaseComponent {
             i = 0;
             for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
               // only display unselected states
-              if (userStory.getUserStoryState() instanceof UserStorySelectedState
+              if (userStory.getUserStoryState() instanceof UserStoryUnselectedState
                   && currentPlayer.equals(userStory.getOwner())) {
                 selectedSubPanel.add(
                     new UserStoryWidget(userStory),
