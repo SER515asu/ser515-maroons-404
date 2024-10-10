@@ -60,7 +60,7 @@ public class SprintUIPane extends JFrame implements BaseComponent {
       // only display unselected states
       if (userStory.getUserStoryState() instanceof UserStoryUnselectedState) {
         selectComboBox.addItem(userStory.toString());
-        widgets.add(new UserStoryWidget(userStory, null));
+        widgets.add(new UserStoryWidget(userStory));
       }
     }
 
@@ -87,7 +87,7 @@ public class SprintUIPane extends JFrame implements BaseComponent {
       if (userStory.getUserStoryState() instanceof UserStorySelectedState
           && currentPlayer.equals(userStory.getOwner())) {
         selectedSubPanel.add(
-            new UserStoryWidget(userStory, null),
+            new UserStoryWidget(userStory),
             new CustomConstraints(
                 0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
       }
@@ -133,7 +133,7 @@ public class SprintUIPane extends JFrame implements BaseComponent {
               // only display unselected states
               if (userStory.getUserStoryState() instanceof UserStoryUnselectedState) {
                 selectComboBox.addItem(userStory.toString());
-                widgets.add(new UserStoryWidget(userStory, null));
+                widgets.add(new UserStoryWidget(userStory));
               }
             }
 
@@ -153,7 +153,7 @@ public class SprintUIPane extends JFrame implements BaseComponent {
               if (userStory.getUserStoryState() instanceof UserStorySelectedState
                   && currentPlayer.equals(userStory.getOwner())) {
                 selectedSubPanel.add(
-                    new UserStoryWidget(userStory, null),
+                    new UserStoryWidget(userStory),
                     new CustomConstraints(
                         0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
               }
