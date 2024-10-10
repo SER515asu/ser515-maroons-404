@@ -21,6 +21,10 @@ public class UserStory extends ScrumObject {
 
   private Player owner;
 
+  private String status;
+
+  // private ArrayList<Task> tasks;  TODO: implement tasks
+
   // private ArrayList<Task> tasks;  TODO: implement tasks
 
   /**
@@ -70,12 +74,19 @@ public class UserStory extends ScrumObject {
   }
 
   /**
-   * Get the name for this UserStory
+   * Creates a user story.
    *
-   * @return the name of this UserStory as a string
+   * @param name the name for the user story
+   * @param description the description for the user story for better understanding of the
+   *     requirements.
+   * @param pointValue the point value for the story as a way of estimating required effort.
    */
-  public String getName() {
-    return name;
+  public UserStory(String name, String description, double pointValue, String status) {
+    this.name = name;
+    this.description = description;
+    this.pointValue = pointValue;
+    this.state = new UserStoryUnselectedState(this);
+    this.status = status;
   }
 
   /**
@@ -156,13 +167,12 @@ public class UserStory extends ScrumObject {
     this.state = state;
   }
 
-  /**
-   * Get the UserStoryState of this UserStory. Unselected, completed, etc.
-   *
-   * @return a UserStoryState object containing the state for this UserStory
-   */
-  public UserStoryState getUserStoryState() {
-    return state;
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   /**
@@ -182,5 +192,13 @@ public class UserStory extends ScrumObject {
    */
   public Player getOwner() {
     return this.owner;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public UserStoryState getUserStoryState() {
+    return state;
   }
 }
