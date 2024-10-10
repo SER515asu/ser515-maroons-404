@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -122,29 +121,7 @@ public class EditUserStoryForm implements BaseComponent {
     deleteButton.addActionListener(
         new ActionListener() {
           public void actionPerformed(ActionEvent e) {
-
-            System.out.println("delete button clicked");
-            System.out.println("User story to be deleted is :" + userStory.getId().toString());
-
-            List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
-            System.out.println("Before deleting");
-            //                        for (UserStory displayUserStories : userStories) {
-            //                            System.out.println(displayUserStories.getId().toString());
-            //                        }
-            int index = -1;
-            for (UserStory us : userStories) {
-              if (us.getId().equals(userStory.getId())) {
-                System.out.println("found the user story to be deleted");
-                index = userStories.indexOf(us);
-                break;
-              }
-            }
-            userStories.remove(index);
-            System.out.println("After deleting");
-            for (UserStory displayUserStories : userStories) {
-              System.out.println(displayUserStories.getId().toString());
-            }
-            UserStoryStore.getInstance().setUserStories(userStories);
+            UserStoryStore.getInstance().removeUserStory(userStory);
             frame.dispose();
             parentWindow.closeWindow();
           }

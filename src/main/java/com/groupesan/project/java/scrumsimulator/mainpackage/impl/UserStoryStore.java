@@ -37,4 +37,16 @@ public class UserStoryStore {
   public void setUserStories(List<UserStory> userStories) {
     this.userStories = userStories;
   }
+
+  public void removeUserStory(UserStory userStory) {
+    int index = -1;
+    for (UserStory us : userStories) {
+      if (us.getId().equals(userStory.getId())) {
+        index = userStories.indexOf(us);
+        break;
+      }
+    }
+    userStories.remove(index);
+    setUserStories(userStories);
+  }
 }
