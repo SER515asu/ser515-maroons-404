@@ -1,5 +1,7 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.impl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,5 +40,7 @@ public class UserStoryStoreTest {
 
     userStoryStore.setUserStories(userStories);
     userStoryStore.removeUserStory(userStory);
+
+    assertNotNull(userStoryStore.getUserStories());
   }
 }
