@@ -34,7 +34,6 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     myJpanel.setLayout(myGridbagLayout);
 
-
     for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
       widgets.add(new UserStoryWidget(userStory));
     }
