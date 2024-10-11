@@ -13,8 +13,9 @@ public class UserStoryFactory {
 
   private UserStoryFactory() {}
 
-  public UserStory createNewUserStory(String name, String description, double pointValue) {
-    UserStory newUS = new UserStory(name, description, pointValue);
+  public UserStory createNewUserStory(
+      String name, String description, double pointValue, String status) {
+    UserStory newUS = new UserStory(name, description, pointValue, status);
     return newUS;
   }
 }
