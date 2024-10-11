@@ -1,11 +1,11 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.impl;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserStoryStoreTest {
 
