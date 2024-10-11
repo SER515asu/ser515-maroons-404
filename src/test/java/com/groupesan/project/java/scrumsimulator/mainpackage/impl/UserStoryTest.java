@@ -14,7 +14,8 @@ public class UserStoryTest {
   @BeforeEach
   public void setup() {
     myUserStory =
-        UserStoryFactory.getInstance().createNewUserStory("predefinedUS1", "description1", 1.0);
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS1", "description1", 1.0, "in progress");
   }
 
   @Test
