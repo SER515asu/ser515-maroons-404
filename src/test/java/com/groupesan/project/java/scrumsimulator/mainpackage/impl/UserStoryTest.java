@@ -75,12 +75,12 @@ public class UserStoryTest {
   public void testSetNameDoesNotAlterBusinessValue() {
     userStory.setName("Updated Story Name");
     assertEquals(8.0, userStory.getBusinessValue(), 0.01);
+  }
 
   public void testStatusUsingConstructor() {
 
     assertEquals(myUserStory.getStatus(), "in progress");
     myUserStory.setStatus("new");
     assertEquals(myUserStory.getStatus(), "new");
-
   }
 }
