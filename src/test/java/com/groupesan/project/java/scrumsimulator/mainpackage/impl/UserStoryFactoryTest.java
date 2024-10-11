@@ -13,7 +13,7 @@ public class UserStoryFactoryTest {
     UserStoryFactory factory = UserStoryFactory.getInstance();
 
     // Act
-    UserStory userStory = factory.createNewUserStory("Story", "Description", 5.0, 15.0, "New");
+    UserStory userStory = factory.createNewUserStory("Story", "Description", 5.0, 15.0, "new");
 
     // Assert
     assertNotNull(userStory);
