@@ -2,6 +2,8 @@ package com.groupesan.project.java.scrumsimulator.mainpackage.state;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,8 +45,17 @@ public class UserStoryStateManager {
    * @param userStoryDescription The description of the User Story: String
    * @param newStatus The new status the User Story will be given : String
    */
-  public static void updateUserStoryStatus(String userStoryDescription, String newStatus) {
+  public static void updateUserStoryStatus(int userStoryId, String newStatus) {
     try {
+
+      List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
+      for (UserStory userStory : userStories) {
+        if (userStory.getId().getValue() == userStoryId) {
+          // update the user story's status
+          userStory.setStatus(newStatus);
+        }
+      }
+      UserStoryStore.getInstance().setUserStories(userStories);
       ObjectMapper objectMapper = new ObjectMapper();
       JsonNode root = objectMapper.readTree(new File(FILE_PATH));
 
@@ -52,7 +63,7 @@ public class UserStoryStateManager {
       for (JsonNode sprint : sprints) {
         JsonNode userStoriesInSprint = sprint.path("User Stories");
         for (JsonNode userStory : userStoriesInSprint) {
-          if (userStory.path("Description").asText().equals(userStoryDescription)) {
+          if (userStory.path("Id").asText().equals(String.valueOf(userStoryId))) {
             ((com.fasterxml.jackson.databind.node.ObjectNode) userStory).put("Status", newStatus);
             break;
           }
