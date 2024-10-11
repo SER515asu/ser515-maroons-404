@@ -53,9 +53,10 @@ public class UserStoryStateManager {
         System.out.println(userStory.getId().getValue());
         if (userStory.getId().getValue() == userStoryId) {
           // update the user story's status
-
+          userStory.setStatus(newStatus);
         }
       }
+      UserStoryStore.getInstance().setUserStories(userStories);
       ObjectMapper objectMapper = new ObjectMapper();
       JsonNode root = objectMapper.readTree(new File(FILE_PATH));
 
