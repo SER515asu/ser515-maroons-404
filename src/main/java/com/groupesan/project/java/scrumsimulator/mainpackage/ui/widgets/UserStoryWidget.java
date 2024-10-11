@@ -58,7 +58,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     name.addMouseListener(openEditDialog);
     desc = new JLabel(userStory.getDescription());
     desc.addMouseListener(openEditDialog);
-    status = new JLabel("new");
+    status = new JLabel(userStory.getStatus());
 
     GridBagLayout myGridBagLayout = new GridBagLayout();
 
