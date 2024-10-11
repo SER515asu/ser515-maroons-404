@@ -21,7 +21,7 @@ public class UserStoryFactoryTest {
     assertEquals("Description", userStory.getDescription());
     assertEquals(5.0, userStory.getPointValue(), 0.01);
     assertEquals(15.0, userStory.getBusinessValue(), 0.01);
-    assertEquals("Backlog", userStory.getStatus());
+    assertEquals("new", userStory.getStatus());
   }
 
   @Test
@@ -30,8 +30,7 @@ public class UserStoryFactoryTest {
     UserStoryFactory factory = UserStoryFactory.getInstance();
 
     // Act
-    UserStory userStory =
-        factory.createNewUserStory("Edge Case", "High Value", 5.0, 1000.0, "new");
+    UserStory userStory = factory.createNewUserStory("Edge Case", "High Value", 5.0, 1000.0, "new");
 
     // Assert
     assertNotNull(userStory);
