@@ -31,7 +31,7 @@ public class App {
   private void initializeUserStories() {
     UserStory a =
         UserStoryFactory.getInstance()
-            .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0, "backlog");
+            .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0, "new");
     a.doRegister();
     UserStoryStore.getInstance().addUserStory(a);
 
