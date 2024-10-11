@@ -18,7 +18,7 @@ public class UserStoryTest {
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0, "in progress");
 
-    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "Backlog");
+    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "new");
   }
 
   @Test
