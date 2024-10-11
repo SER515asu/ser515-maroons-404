@@ -43,9 +43,9 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         }
       };
 
-  public UserStoryWidget(UserStory userStory) {
+  public UserStoryWidget(UserStory userStory, UserStoryListPane parentWindow) {
     this.userStory = userStory;
-
+    this.parentWindow = parentWindow;
     this.init();
   }
 

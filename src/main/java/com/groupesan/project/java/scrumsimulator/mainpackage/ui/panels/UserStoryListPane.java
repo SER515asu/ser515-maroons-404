@@ -35,7 +35,7 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
     myJpanel.setLayout(myGridbagLayout);
 
     for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
-      widgets.add(new UserStoryWidget(userStory));
+      widgets.add(new UserStoryWidget(userStory, this));
     }
 
     JPanel subPanel = new JPanel();
@@ -43,7 +43,7 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
     int i = 0;
     for (UserStory us : UserStoryStore.getInstance().getUserStories()) {
       subPanel.add(
-          new UserStoryWidget(us),
+          new UserStoryWidget(us, this),
           new CustomConstraints(
               0, i++, GridBagConstraints.WEST, 1.0, 0.1, GridBagConstraints.HORIZONTAL));
     }
@@ -66,7 +66,7 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
                   public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                     UserStory userStory = form.getUserStoryObject();
                     UserStoryStore.getInstance().addUserStory(userStory);
-                    widgets.add(new UserStoryWidget(userStory));
+                    widgets.add(new UserStoryWidget(userStory, null));
                     int idx = widgets.size() - 1;
                     subPanel.add(
                         widgets.get(idx),
