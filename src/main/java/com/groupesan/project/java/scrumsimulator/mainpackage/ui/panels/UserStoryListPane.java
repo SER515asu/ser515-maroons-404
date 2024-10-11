@@ -1,5 +1,4 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
-
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
@@ -33,14 +32,6 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
     JPanel myJpanel = new JPanel();
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     myJpanel.setLayout(myGridbagLayout);
-
-    // demo/testing widgets
-    //        UserStory aUserStory = UserStoryFactory.getInstance().createNewUserStory("foo",
-    // "bar", 2);
-    //        UserStory aUserStory2 =
-    //                UserStoryFactory.getInstance().createNewUserStory("foo2", "bar2", 4);
-    //        widgets.add(new UserStoryWidget(aUserStory));
-    //        widgets.add(new UserStoryWidget(aUserStory2));
 
     for (UserStory userStory : UserStoryStore.getInstance().getUserStories()) {
       widgets.add(new UserStoryWidget(userStory));
