@@ -37,6 +37,7 @@ public class UserStory extends ScrumObject {
    * @param pointValue the point value for the story as a way of estimating required effort.
    * @param businessValue the business value for the story as a way of estimating the value of the
    *     story.
+   * @param status the status for the user story
    */
   public UserStory(
       String name, String description, double pointValue, double businessValue, String status) {
