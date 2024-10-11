@@ -35,6 +35,10 @@ class GeneralPage extends Wizard.WizardPage {
         new SpinnerInput(
             "Sprints: ", new JSpinner(new SpinnerNumberModel(1, 1, 20, 1)), sprintModel);
 
+    SpinnerInput sprintDurationInput =
+        new SpinnerInput(
+            "Sprint Duration: ", new JSpinner(new SpinnerNumberModel(1, 1, 10, 1)), sprintModel);
+
     inputs.add(
         resuableHeader,
         new GridBagConstraintsBuilder()
@@ -55,6 +59,13 @@ class GeneralPage extends Wizard.WizardPage {
         new GridBagConstraintsBuilder()
             .setGridX(0)
             .setGridY(2)
+            .setWeightX(1)
+            .setFill(GridBagConstraints.HORIZONTAL));
+    inputs.add(
+        sprintDurationInput,
+        new GridBagConstraintsBuilder()
+            .setGridX(0)
+            .setGridY(3)
             .setWeightX(1)
             .setFill(GridBagConstraints.HORIZONTAL));
 
