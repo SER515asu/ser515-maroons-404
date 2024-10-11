@@ -26,7 +26,7 @@ import lombok.Setter;
 public class EditUserStoryForm implements BaseComponent {
 
   Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
-  private UserStoryListPane parentWindow = null;
+  private UserStoryListPane parentWindow;
 
   public EditUserStoryForm(UserStory userStory, UserStoryListPane parentWindow) {
     this.userStory = userStory;
