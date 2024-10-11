@@ -30,10 +30,17 @@ public class ProductBacklogStore {
   }
 
   public void addUserStoryInProductBacklog(UserStory userStory) {
-    productBacklog.add(userStory);
+    if (userStory.getStatus().equals("new")) productBacklog.add(userStory);
   }
 
   public List<UserStory> getUserStoriesFromProductBacklog() {
-    return new ArrayList<>(productBacklog);
+    List<UserStory> userstorieslist = UserStoryStore.getInstance().getUserStories();
+    List<UserStory> productBacklog = new ArrayList<>();
+    for (UserStory product : userstorieslist) {
+      if (product.getStatus().equals("new")) {
+        productBacklog.add(product);
+      }
+    }
+    return productBacklog;
   }
 }
