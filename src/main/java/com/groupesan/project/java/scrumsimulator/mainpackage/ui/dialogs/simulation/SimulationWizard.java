@@ -1,7 +1,6 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.dialogs.simulation;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Player;
-import com.groupesan.project.java.scrumsimulator.mainpackage.core.ScrumRole;
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Simulation;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.utils.DataModel;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.Wizard;
@@ -12,7 +11,6 @@ import java.util.List;
 public class SimulationWizard extends Wizard<Simulation> {
   private DataModel<String> simulationName;
   private DataModel<Object> sprintCount;
-  private DataModel<List<ScrumRole>> roles;
   private DataModel<List<Player>> users;
 
   public SimulationWizard(WizardHandler<Simulation> handler) {
@@ -24,12 +22,11 @@ public class SimulationWizard extends Wizard<Simulation> {
   protected void initDataModels() {
     this.simulationName = new DataModel<>("New Simulation");
     this.sprintCount = new DataModel<>(1);
-    this.roles = new DataModel<>(new ArrayList<>());
     this.users = new DataModel<>(new ArrayList<>());
   }
 
   protected List<WizardPage> build() {
-    return List.of(new GeneralPage(simulationName, sprintCount), new RolesPage(roles));
+    return List.of(new GeneralPage(simulationName, sprintCount));
   }
 
   @Override
