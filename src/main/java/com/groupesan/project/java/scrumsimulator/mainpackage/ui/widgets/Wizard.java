@@ -38,7 +38,7 @@ public abstract class Wizard<T> extends JFrame implements BaseComponent {
     body.setBorder(new EmptyBorder(10, 10, 10, 10));
 
     for (WizardPage page : pages) {
-      if (pageNum != 1) body.add(page.render(), page.getId());
+      body.add(page.render(), page.getId());
     }
 
     JPanel footer = buildFooter(bodyLayout, body);

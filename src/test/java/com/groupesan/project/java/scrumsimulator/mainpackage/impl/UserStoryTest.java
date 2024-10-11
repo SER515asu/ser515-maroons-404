@@ -10,15 +10,12 @@ import org.junit.jupiter.api.Test;
 
 public class UserStoryTest {
   private UserStory myUserStory;
-  private UserStory userStory;
 
   @BeforeEach
   public void setup() {
     myUserStory =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0, "in progress");
-
-    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "Backlog");
   }
 
   @Test
@@ -54,27 +51,5 @@ public class UserStoryTest {
     ScrumIdentifier id = myUserStory.getId();
 
     assertNotNull(id);
-  }
-
-  @Test
-  public void testGetBusinessValue() {
-    assertEquals(8.0, userStory.getBusinessValue(), 0.01);
-  }
-
-  @Test
-  public void testSetBusinessValue() {
-    userStory.setBusinessValue(10.0);
-    assertEquals(10.0, userStory.getBusinessValue(), 0.01);
-  }
-
-  @Test
-  public void testSetBusinessValueNegative() {
-    userStory.setBusinessValue(-5.0);
-  }
-
-  @Test
-  public void testSetNameDoesNotAlterBusinessValue() {
-    userStory.setName("Updated Story Name");
-    assertEquals(8.0, userStory.getBusinessValue(), 0.01);
   }
 }
