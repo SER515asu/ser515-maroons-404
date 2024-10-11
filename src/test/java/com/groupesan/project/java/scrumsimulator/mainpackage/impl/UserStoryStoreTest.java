@@ -18,7 +18,8 @@ public class UserStoryStoreTest {
 
   @Test
   public void testSetUserStories() {
-    UserStory userStory = new UserStory("test", "setting user story from test class", 0.0, "new");
+    UserStory userStory =
+        new UserStory("test", "setting user story from test class", 0.0, 2.0, "new");
     List<UserStory> userStories = new ArrayList<>();
     userStories.add(userStory);
     userStoryStore.setUserStories(userStories);
@@ -27,13 +28,13 @@ public class UserStoryStoreTest {
   @Test
   public void testAddUserStory() {
     userStoryStore.addUserStory(
-        new UserStory("test", "setting user story from test class", 0.0, "new"));
+        new UserStory("test", "setting user story from test class", 0.0, 3.0, "new"));
   }
 
   @Test
   public void testRemoveUserStory() {
     UserStory userStory =
-        new UserStory("test", "setting user story from test class", 0.0, "backlog");
+        new UserStory("test", "setting user story from test class", 0.0, 12.0, "backlog");
     List<UserStory> userStories = new ArrayList<>();
     userStory.doRegister();
     userStories.add(userStory);

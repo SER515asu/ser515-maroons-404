@@ -1,6 +1,8 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.dialogs.simulation;
 
-import com.groupesan.project.java.scrumsimulator.mainpackage.core.*;
+import com.groupesan.project.java.scrumsimulator.mainpackage.core.Player;
+import com.groupesan.project.java.scrumsimulator.mainpackage.core.ScrumRole;
+import com.groupesan.project.java.scrumsimulator.mainpackage.core.Simulation;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.utils.DataModel;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.Wizard;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.WizardHandler;
@@ -27,10 +29,7 @@ public class SimulationWizard extends Wizard<Simulation> {
   }
 
   protected List<WizardPage> build() {
-    return List.of(
-        new GeneralPage(simulationName, sprintCount),
-        new RolesPage(roles),
-        new ParticipantsPage(users, roles));
+    return List.of(new GeneralPage(simulationName, sprintCount), new RolesPage(roles));
   }
 
   @Override

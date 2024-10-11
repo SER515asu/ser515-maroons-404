@@ -28,23 +28,6 @@ public class UserStory extends ScrumObject {
   // private ArrayList<Task> tasks;  TODO: implement tasks
 
   // private ArrayList<Task> tasks;  TODO: implement tasks
-
-  /**
-   * Creates a user story. Leaves the description as an empty string.
-   *
-   * @param name the name for the user story
-   * @param pointValue the point value for the story as a way of estimating required effort.
-   * @param businessValue the business value for the story as a way of estimating the value of the
-   *     story.
-   */
-  public UserStory(String name, double pointValue, double businessValue) {
-    this.name = name;
-    this.description = "";
-    this.pointValue = pointValue;
-    this.businessValue = businessValue;
-    this.state = new UserStoryUnselectedState(this);
-  }
-
   /**
    * Creates a user story.
    *
@@ -64,6 +47,7 @@ public class UserStory extends ScrumObject {
     this.businessValue = businessValue;
     this.status = status;
     this.state = new UserStoryUnselectedState(this);
+    this.status = status;
   }
 
   protected void register() {
@@ -82,22 +66,6 @@ public class UserStory extends ScrumObject {
           "This UserStory has not been registered and does not have an ID yet!");
     }
     return id;
-  }
-
-  /**
-   * Creates a user story.
-   *
-   * @param name the name for the user story
-   * @param description the description for the user story for better understanding of the
-   *     requirements.
-   * @param pointValue the point value for the story as a way of estimating required effort.
-   */
-  public UserStory(String name, String description, double pointValue, String status) {
-    this.name = name;
-    this.description = description;
-    this.pointValue = pointValue;
-    this.state = new UserStoryUnselectedState(this);
-    this.status = status;
   }
 
   /**
