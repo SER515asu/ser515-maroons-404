@@ -1,17 +1,13 @@
-name: Check Google Java Format with Spotless
+name: Build Java Project
 
 on:
   push:
     branches:
       - main
       - 'US_[0-9][0-9]'
-  pull_request:
-    branches:
-      - main
-      - 'US_[0-9][0-9]'
 
 jobs:
-  spotless-check:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,13 +19,11 @@ jobs:
       with:
         java-version: '21.0.4'
         distribution: 'temurin'
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
 
     - name: Grant execute permission for Gradle wrapper
       run: chmod +x ./gradlew
-
-    - name: Run Spotless Check for Google Java Format
-      run: ./gradlew spotlessCheck
-
-    - name: Fail the job if formatting is incorrect
-      if: failure()
-      run: exit 1
+       
+    - name: Build with Gradle
+      run: ./gradlew build --stacktrace --info
