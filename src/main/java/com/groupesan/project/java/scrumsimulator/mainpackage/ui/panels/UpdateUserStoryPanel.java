@@ -79,7 +79,6 @@ public class UpdateUserStoryPanel extends JFrame {
             if (selectedUserStory != null && selectedStatus != null) {
               int userStoryId =
                   Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
-              System.out.println(userStoryId);
               UserStoryStateManager.updateUserStoryStatus(userStoryId, selectedStatus);
               JOptionPane.showMessageDialog(null, "Status updated successfully!");
               dispose();

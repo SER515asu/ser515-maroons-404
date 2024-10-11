@@ -50,7 +50,6 @@ public class UserStoryStateManager {
 
       List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
       for (UserStory userStory : userStories) {
-        System.out.println(userStory.getId().getValue());
         if (userStory.getId().getValue() == userStoryId) {
           // update the user story's status
           userStory.setStatus(newStatus);
@@ -64,7 +63,7 @@ public class UserStoryStateManager {
       for (JsonNode sprint : sprints) {
         JsonNode userStoriesInSprint = sprint.path("User Stories");
         for (JsonNode userStory : userStoriesInSprint) {
-          if (userStory.path("Id").asText().equals(userStoryId)) {
+          if (userStory.path("Id").asText().equals(String.valueOf(userStoryId))) {
             ((com.fasterxml.jackson.databind.node.ObjectNode) userStory).put("Status", newStatus);
             break;
           }
