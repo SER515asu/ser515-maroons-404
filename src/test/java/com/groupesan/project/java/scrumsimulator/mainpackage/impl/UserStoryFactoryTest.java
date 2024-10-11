@@ -31,7 +31,7 @@ public class UserStoryFactoryTest {
 
     // Act
     UserStory userStory =
-        factory.createNewUserStory("Edge Case", "High Value", 5.0, 1000.0, "New");
+        factory.createNewUserStory("Edge Case", "High Value", 5.0, 1000.0, "new");
 
     // Assert
     assertNotNull(userStory);
