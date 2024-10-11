@@ -1,6 +1,7 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 import java.awt.BorderLayout;
@@ -17,13 +18,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import lombok.Getter;
+import lombok.Setter;
 
-public class EditUserStoryForm extends JFrame implements BaseComponent {
+@Setter
+@Getter
+public class EditUserStoryForm implements BaseComponent {
 
   Double[] pointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
+  private UserStoryListPane parentWindow = null;
 
-  public EditUserStoryForm(UserStory userStory) {
+  public EditUserStoryForm(UserStory userStory, UserStoryListPane parentWindow) {
     this.userStory = userStory;
+    this.parentWindow = parentWindow;
     this.init();
   }
 
@@ -33,10 +40,16 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
   private JTextArea descArea = new JTextArea();
   private JComboBox<Double> pointsCombo = new JComboBox<>(pointsList);
 
+  private JButton submitButton;
+  private JButton deleteButton;
+  private JButton cancelButton;
+
   public void init() {
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    setTitle("Edit User Story " + userStory.getId().toString());
-    setSize(400, 300);
+    JFrame frame = new JFrame();
+
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setTitle("Edit User Story " + userStory.getId().toString());
+    frame.setSize(400, 300);
 
     nameField = new JTextField(userStory.getName());
     descArea = new JTextArea(userStory.getDescription());
@@ -50,7 +63,7 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
 
     BorderLayout myBorderLayout = new BorderLayout();
 
-    setLayout(myBorderLayout);
+    frame.setLayout(myBorderLayout);
 
     JLabel nameLabel = new JLabel("Name:");
     myJpanel.add(
@@ -78,17 +91,17 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-    JButton cancelButton = new JButton("Cancel");
+    cancelButton = new JButton("Cancel");
 
     cancelButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            dispose();
+            frame.dispose();
           }
         });
 
-    JButton submitButton = new JButton("Submit");
+    submitButton = new JButton("Submit");
 
     submitButton.addActionListener(
         new ActionListener() {
@@ -101,17 +114,28 @@ public class EditUserStoryForm extends JFrame implements BaseComponent {
             userStory.setName(name);
             userStory.setDescription(description);
             userStory.setPointValue(points);
-            dispose();
+            frame.dispose();
           }
         });
-
+    deleteButton = new JButton("Delete");
+    deleteButton.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            UserStoryStore.getInstance().removeUserStory(userStory);
+            frame.dispose();
+            parentWindow.closeWindow();
+          }
+        });
     myJpanel.add(
         cancelButton,
         new CustomConstraints(0, 3, GridBagConstraints.EAST, GridBagConstraints.NONE));
     myJpanel.add(
         submitButton,
         new CustomConstraints(1, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
-
-    add(myJpanel);
+    myJpanel.add(
+        deleteButton,
+        new CustomConstraints(2, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
+    frame.add(myJpanel);
+    frame.setVisible(true);
   }
 }
