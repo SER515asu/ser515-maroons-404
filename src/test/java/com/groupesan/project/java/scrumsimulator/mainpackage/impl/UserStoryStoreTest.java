@@ -5,6 +5,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 public class UserStoryStoreTest {
 
   UserStoryStore userStoryStore;
@@ -36,5 +38,7 @@ public class UserStoryStoreTest {
 
     userStoryStore.setUserStories(userStories);
     userStoryStore.removeUserStory(userStory);
+
+    assertNotNull(userStoryStore.getUserStories());
   }
 }
