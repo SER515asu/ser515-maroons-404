@@ -5,8 +5,15 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.UserStoryStateManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class UpdateUserStoryPanel extends JFrame {
 
@@ -34,7 +41,17 @@ public class UpdateUserStoryPanel extends JFrame {
     panel.add(userStoryLabel);
 
     List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
-    JComboBox<String> userStoryComboBox = new JComboBox<>();
+    // display user story id and name
+    List<String> displayUserStories = new ArrayList<String>();
+    displayUserStories.add("");
+    for (UserStory userStory : userStories) {
+      String item = userStory.getId() + " : " + userStory.getName();
+      displayUserStories.add(item);
+    }
+
+    JComboBox<String> userStoryComboBox =
+        new JComboBox<>(displayUserStories.toArray(new String[0]));
+    userStoryComboBox.setSelectedItem("Please select user story");
     userStoryComboBox.setBounds(150, 20, 200, 25);
     panel.add(userStoryComboBox);
 
@@ -56,10 +73,14 @@ public class UpdateUserStoryPanel extends JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
             String selectedUserStory = (String) userStoryComboBox.getSelectedItem();
+            System.out.println(selectedUserStory);
             String selectedStatus = (String) statusComboBox.getSelectedItem();
-
+            System.out.println(selectedStatus);
             if (selectedUserStory != null && selectedStatus != null) {
-              UserStoryStateManager.updateUserStoryStatus(selectedUserStory, selectedStatus);
+              int userStoryId =
+                  Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
+              System.out.println(userStoryId);
+              UserStoryStateManager.updateUserStoryStatus(userStoryId, selectedStatus);
               JOptionPane.showMessageDialog(null, "Status updated successfully!");
               dispose();
             } else {
