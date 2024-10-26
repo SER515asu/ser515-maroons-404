@@ -65,8 +65,26 @@ public class UpdateUserStoryPanel extends JFrame {
     panel.add(statusComboBox);
 
     JButton updateButton = new JButton("Update Status");
-    updateButton.setBounds(150, 80, 150, 25);
+    updateButton.setBounds(150, 120, 150, 25);
     panel.add(updateButton);
+
+    JLabel blockingUserStoryLabel = new JLabel("Blocking User Story:");
+    blockingUserStoryLabel.setBounds(10, 80, 120, 25);
+    panel.add(blockingUserStoryLabel);
+
+    List<UserStory> blockingUserStories = UserStoryStore.getInstance().getUserStories();
+    List<String> displayBlockingUserStories = new ArrayList<String>();
+    displayBlockingUserStories.add("");
+    for (UserStory userStory : blockingUserStories) {
+      String blockingItem = userStory.getId() + " : " + userStory.getName();
+      displayBlockingUserStories.add(blockingItem);
+    }
+
+    JComboBox<String> blockingUserStoryComboBox =
+        new JComboBox<>(displayBlockingUserStories.toArray(new String[0]));
+    blockingUserStoryComboBox.setSelectedItem("Please select a blocking user story");
+    blockingUserStoryComboBox.setBounds(150, 80, 200, 25);
+    panel.add(blockingUserStoryComboBox);
 
     updateButton.addActionListener(
         new ActionListener() {
@@ -79,6 +97,21 @@ public class UpdateUserStoryPanel extends JFrame {
             if (selectedUserStory != null && selectedStatus != null) {
               int userStoryId =
                   Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
+              if ("blocker".equals(selectedStatus)) {
+                String selectedBlockingUserStory =
+                    (String) blockingUserStoryComboBox.getSelectedItem();
+                System.out.println(selectedBlockingUserStory);
+                if (selectedBlockingUserStory == null
+                    || selectedBlockingUserStory.trim().isEmpty()) {
+                  JOptionPane.showMessageDialog(
+                      panel,
+                      "Please select a Blocking User Story",
+                      "Validation Error",
+                      JOptionPane.ERROR_MESSAGE);
+                  System.out.println("Add a Blocking User Story to proceed");
+                  return;
+                }
+              } // else selectedBlockingUserStory = null;
               UserStoryStateManager.updateUserStoryStatus(userStoryId, selectedStatus);
               JOptionPane.showMessageDialog(null, "Status updated successfully!");
               dispose();
