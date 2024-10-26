@@ -41,12 +41,10 @@ public class DemoPane extends JFrame implements BaseComponent {
 
     welcomeLabel = new JLabel();
     welcomeLabel.setText("Hello!");
-      myJpanel.add(
-              welcomeLabel,
-              new CustomConstraints(
-                      0, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL
-              )
-      );
+    myJpanel.add(
+        welcomeLabel,
+        new CustomConstraints(
+            0, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
     JButton sprintsButton = new JButton("Sprints");
     sprintsButton.addActionListener(
