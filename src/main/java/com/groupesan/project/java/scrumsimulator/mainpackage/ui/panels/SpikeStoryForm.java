@@ -70,12 +70,13 @@ public class SpikeStoryForm extends JFrame {
     buttonPanel.add(submitButton, gbc);
 
     // ActionListener for the Cancel button
-    cancelButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        dispose(); // Close the form when Cancel is clicked
-      }
-    });
+    cancelButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            dispose(); // Close the form when Cancel is clicked
+          }
+        });
 
     // Add main panel and button panel to the frame
     setLayout(new GridBagLayout());
