@@ -1,10 +1,12 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
+import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -12,78 +14,93 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class SpikeStoryForm extends JFrame {
+public class SpikeStoryForm extends JFrame implements BaseComponent {
+
+  Double[] effortPointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
+
   public SpikeStoryForm() {
-    // Set the title and size to match NewUserStoryForm
+    this.init();
+  }
+
+  private JComboBox<String> developerCombo = new JComboBox<>();
+  private JComboBox<Double> effortPointsCombo = new JComboBox<>(effortPointsList);
+  private JComboBox<String> blockingStoryCombo = new JComboBox<>(getUserStories());
+  private JButton submitButton = new JButton("Submit");
+
+  public void init() {
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setTitle("Spike Story");
     setSize(500, 400);
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-    // Main panel setup using GridBagLayout
-    JPanel mainPanel = new JPanel(new GridBagLayout());
-    mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10)); // Padding around the panel
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.insets = new Insets(5, 5, 5, 5); // Padding around components
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.anchor = GridBagConstraints.WEST;
+    GridBagLayout myGridbagLayout = new GridBagLayout();
+    JPanel myJpanel = new JPanel();
+    myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    myJpanel.setLayout(myGridbagLayout);
 
-    // Developers Working label
+    // Developers Working label and dropdown
     JLabel developerLabel = new JLabel("Developers Working:");
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.gridwidth = 1;
-    mainPanel.add(developerLabel, gbc);
+    myJpanel.add(
+        developerLabel,
+        new CustomConstraints(0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        developerCombo,
+        new CustomConstraints(
+            1, 0, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-    // Developers Working dropdown
-    JComboBox<String> developerComboBox = new JComboBox<>(); // Empty dropdown
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.gridwidth = 2;
-    mainPanel.add(developerComboBox, gbc);
-
-    // Effort Points label
+    // Effort Points label and dropdown
     JLabel effortPointsLabel = new JLabel("Effort Points:");
-    gbc.gridx = 0;
-    gbc.gridy = 1;
-    gbc.gridwidth = 1;
-    mainPanel.add(effortPointsLabel, gbc);
+    myJpanel.add(
+        effortPointsLabel,
+        new CustomConstraints(0, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        effortPointsCombo,
+        new CustomConstraints(
+            1, 1, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-    // Effort Points dropdown (same as Points in NewUserStoryForm)
-    Double[] effortPointsOptions = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
-    JComboBox<Double> effortPointsComboBox = new JComboBox<>(effortPointsOptions);
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.gridwidth = 2;
-    mainPanel.add(effortPointsComboBox, gbc);
+    // Select Blocking Story label and dropdown
+    JLabel blockingStoryLabel = new JLabel("Select Blocking Story:");
+    myJpanel.add(
+        blockingStoryLabel,
+        new CustomConstraints(0, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+    myJpanel.add(
+        blockingStoryCombo,
+        new CustomConstraints(
+            1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
     // Submit and Cancel buttons
-    JPanel buttonPanel = new JPanel(new GridBagLayout());
     JButton cancelButton = new JButton("Cancel");
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.gridwidth = 1;
-    buttonPanel.add(cancelButton, gbc);
+    cancelButton.addActionListener(e -> this.dispose()); // Corrected the dispose call
 
-    JButton submitButton = new JButton("Submit");
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    buttonPanel.add(submitButton, gbc);
+    // Set Submit button to be inactive initially
+    submitButton.setEnabled(false);
+    submitButton.addActionListener(e -> handleSubmit());
 
-    // ActionListener for the Cancel button
-    cancelButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        dispose(); // Close the form when Cancel is clicked
-      }
-    });
+    myJpanel.add(
+        cancelButton,
+        new CustomConstraints(0, 3, GridBagConstraints.EAST, GridBagConstraints.NONE));
+    myJpanel.add(
+        submitButton,
+        new CustomConstraints(1, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
 
-    // Add main panel and button panel to the frame
-    setLayout(new GridBagLayout());
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    add(mainPanel, gbc);
+    add(myJpanel);
+  }
 
-    gbc.gridy = 1;
-    add(buttonPanel, gbc);
+  // Fetch existing user stories from UserStoryStore
+  private String[] getUserStories() {
+    UserStoryStore userStoryStore = UserStoryStore.getInstance();
+
+    // Get the list of existing user stories
+    List<UserStory> userStories = userStoryStore.getUserStories();
+
+    // Extract names from UserStory objects
+    return userStories.stream()
+        .map(UserStory::getName) // Using getName() to get the user story name
+        .toArray(String[]::new);
+  }
+
+  // Handle submit action
+  private void handleSubmit() {
+    // Handle form submission logic here
+    this.dispose(); // Close the form for now
   }
 }
