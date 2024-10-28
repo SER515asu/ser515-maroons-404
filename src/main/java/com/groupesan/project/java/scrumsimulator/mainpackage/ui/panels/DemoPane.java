@@ -130,7 +130,7 @@ public class DemoPane extends JFrame implements BaseComponent {
             3, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
     // Simulation button for Demo
-    JButton simulationButton = new JButton("Add User");
+    JButton simulationButton = new JButton("Add Developer");
     simulationButton.addActionListener(
         new ActionListener() {
           @Override
