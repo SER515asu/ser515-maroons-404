@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  */
 public class SimulationPane extends JFrame {
   private JButton joinButton;
-  private JTextField developernameField;
+  private JTextField usernameField;
   private JRadioButton playerRadioButton;
   private JRadioButton teacherRadioButton;
   private ButtonGroup typeButtonGroup;
@@ -44,12 +44,30 @@ public class SimulationPane extends JFrame {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     JPanel panel = new JPanel();
-    panel.setLayout(new GridLayout(3, 2));
+    panel.setLayout(new GridLayout(4, 2));
 
     JLabel usernameLabel = new JLabel("Developer Name:");
-    developernameField = new JTextField(20);
+    usernameField = new JTextField(20);
     panel.add(usernameLabel);
-    panel.add(developernameField);
+    panel.add(usernameField);
+
+    /*JLabel typeLabel = new JLabel("Type:");
+    panel.add(typeLabel);
+
+    typeButtonGroup = new ButtonGroup();
+    playerRadioButton = new JRadioButton("Player");
+    teacherRadioButton = new JRadioButton("Teacher");
+    typeButtonGroup.add(playerRadioButton);
+    typeButtonGroup.add(teacherRadioButton);
+
+    panel.add(playerRadioButton);
+    panel.add(new JLabel(""));
+    panel.add(teacherRadioButton);
+
+    JLabel roleNameLabel = new JLabel("Role Name:");
+    roleComboBox = new JComboBox<>(allowedRoleNames.toArray(new String[0]));
+    panel.add(roleNameLabel);
+    panel.add(roleComboBox);*/
 
     joinButton = new JButton("Add Developer");
     joinButton.addActionListener(
@@ -67,23 +85,23 @@ public class SimulationPane extends JFrame {
   }
 
   private void onJoinButtonClicked() {
-    String username = developernameField.getText();
-    String type = playerRadioButton.isSelected() ? "player" : "teacher";
-    String roleName = roleComboBox.getSelectedItem().toString();
+    String username = usernameField.getText();
+    /*String type = playerRadioButton.isSelected() ? "player" : "teacher";
+    String roleName = roleComboBox.getSelectedItem().toString();*/
 
     if (username.isEmpty()) {
       JOptionPane.showMessageDialog(
-          null, "Username cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+          null, "Developer name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
-    AddUser.addUser(username, type, roleName);
+    AddUser.addUser(username);
     clearFields();
   }
 
   private void clearFields() {
-    developernameField.setText("");
-    typeButtonGroup.clearSelection();
-    roleComboBox.setSelectedIndex(0);
+    usernameField.setText("");
+    // typeButtonGroup.clearSelection();
+    // roleComboBox.setSelectedIndex(0);
   }
 }
