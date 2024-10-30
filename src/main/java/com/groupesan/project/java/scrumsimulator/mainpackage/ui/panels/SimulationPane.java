@@ -46,12 +46,12 @@ public class SimulationPane extends JFrame {
     JPanel panel = new JPanel();
     panel.setLayout(new GridLayout(4, 2));
 
-    JLabel usernameLabel = new JLabel("Username:");
+    JLabel usernameLabel = new JLabel("Developer Name:");
     usernameField = new JTextField(20);
     panel.add(usernameLabel);
     panel.add(usernameField);
 
-    JLabel typeLabel = new JLabel("Type:");
+    /*JLabel typeLabel = new JLabel("Type:");
     panel.add(typeLabel);
 
     typeButtonGroup = new ButtonGroup();
@@ -67,9 +67,9 @@ public class SimulationPane extends JFrame {
     JLabel roleNameLabel = new JLabel("Role Name:");
     roleComboBox = new JComboBox<>(allowedRoleNames.toArray(new String[0]));
     panel.add(roleNameLabel);
-    panel.add(roleComboBox);
+    panel.add(roleComboBox);*/
 
-    joinButton = new JButton("Join Simulation");
+    joinButton = new JButton("Add Developer");
     joinButton.addActionListener(
         new ActionListener() {
           @Override
@@ -86,22 +86,22 @@ public class SimulationPane extends JFrame {
 
   private void onJoinButtonClicked() {
     String username = usernameField.getText();
-    String type = playerRadioButton.isSelected() ? "player" : "teacher";
-    String roleName = roleComboBox.getSelectedItem().toString();
+    /*String type = playerRadioButton.isSelected() ? "player" : "teacher";
+    String roleName = roleComboBox.getSelectedItem().toString();*/
 
     if (username.isEmpty()) {
       JOptionPane.showMessageDialog(
-          null, "Username cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+          null, "Developer name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
-    AddUser.addUser(username, type, roleName);
+    AddUser.addUser(username);
     clearFields();
   }
 
   private void clearFields() {
     usernameField.setText("");
-    typeButtonGroup.clearSelection();
-    roleComboBox.setSelectedIndex(0);
+    // typeButtonGroup.clearSelection();
+    // roleComboBox.setSelectedIndex(0);
   }
 }

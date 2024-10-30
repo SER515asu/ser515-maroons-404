@@ -6,6 +6,9 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComp
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -67,20 +70,39 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
-    // Submit and Cancel buttons
-    JButton cancelButton = new JButton("Cancel");
-    cancelButton.addActionListener(e -> this.dispose()); // Corrected the dispose call
+    // Initialize and set constraints for button panel
+    JPanel buttonPanel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 5, 5, 5);
 
-    // Set Submit button to be inactive initially
-    submitButton.setEnabled(false);
+    // Cancel button
+    JButton cancelButton = new JButton("Cancel");
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 1;
+    buttonPanel.add(cancelButton, gbc);
+
+    // Submit button
+    gbc.gridx = 1;
+    gbc.gridy = 0;
+    buttonPanel.add(submitButton, gbc);
+
+    // ActionListener for the Cancel button
+    cancelButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            dispose(); // Close the form when Cancel is clicked
+          }
+        });
+
+    // Submit button action
     submitButton.addActionListener(e -> handleSubmit());
 
+    // Add button panel to main panel
     myJpanel.add(
-        cancelButton,
-        new CustomConstraints(0, 3, GridBagConstraints.EAST, GridBagConstraints.NONE));
-    myJpanel.add(
-        submitButton,
-        new CustomConstraints(1, 3, GridBagConstraints.WEST, GridBagConstraints.NONE));
+        buttonPanel,
+        new CustomConstraints(0, 3, GridBagConstraints.CENTER, GridBagConstraints.NONE));
 
     add(myJpanel);
   }
@@ -88,19 +110,13 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
   // Fetch existing user stories from UserStoryStore
   private String[] getUserStories() {
     UserStoryStore userStoryStore = UserStoryStore.getInstance();
-
-    // Get the list of existing user stories
     List<UserStory> userStories = userStoryStore.getUserStories();
-
-    // Extract names from UserStory objects
-    return userStories.stream()
-        .map(UserStory::getName) // Using getName() to get the user story name
-        .toArray(String[]::new);
+    return userStories.stream().map(UserStory::getName).toArray(String[]::new);
   }
 
   // Handle submit action
   private void handleSubmit() {
-    // Handle form submission logic here
-    this.dispose(); // Close the form for now
+    System.out.println("Spike Story submitted!");
+    dispose(); // Close the form
   }
 }
