@@ -2,7 +2,9 @@ package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Player;
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.ScrumRole;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.BlockerSolutionListStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.ProductBacklogStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.SolutionListValue;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationManager;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationStateManager;
@@ -13,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -114,12 +117,21 @@ public class DemoPane extends JFrame implements BaseComponent {
             twoButtonWindow.setLayout(new GridLayout(1, 2, 10, 10));
             twoButtonWindow.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+            // Trigger the java method to auto populate the blocker and solution list
+            BlockerSolutionListStore.getInstance().populateDefaultList();
+
             // Two buttons for the window
             JLabel label =
                 new JLabel("Please select from the available choices to configure probability.\n");
 
             JButton blockerSetButton = new JButton("Blocker");
             JButton solutionSetButton = new JButton("Solution");
+
+            // Populate the screen dropdown from backend
+            Map<UserStory, Double> blockerList =
+                BlockerSolutionListStore.getInstance().getDefaultBlockerList();
+            Map<UserStory, SolutionListValue> solutionList =
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList();
 
             twoButtonWindow.add(label);
             twoButtonWindow.add(blockerSetButton);
