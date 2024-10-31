@@ -1,21 +1,25 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
-import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
-import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
-import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
-import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
+
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets.BaseComponent;
+import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 
 public class SpikeStoryForm extends JFrame implements BaseComponent {
 
@@ -25,12 +29,13 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
     this.init();
   }
 
-  private JComboBox<String> developerCombo = new JComboBox<>();
+  private JPopupMenu developerCombo;
   private JComboBox<Double> effortPointsCombo = new JComboBox<>(effortPointsList);
   private JComboBox<String> blockingStoryCombo = new JComboBox<>(getUserStories());
   private JButton submitButton = new JButton("Submit");
 
   public void init() {
+    developerCombo = new JPopupMenu();
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setTitle("Spike Story");
     setSize(500, 400);
@@ -40,11 +45,17 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     myJpanel.setLayout(myGridbagLayout);
 
-    
+    JCheckBox option1 = new JCheckBox("ABC");
+    JCheckBox option2 = new JCheckBox("XYZ");
+    developerCombo.add(option1);
+    developerCombo.add(option2);
+
     JLabel developerLabel = new JLabel("Developers Working:");
+    
     myJpanel.add(
         developerLabel,
         new CustomConstraints(0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+
     myJpanel.add(
         developerCombo,
         new CustomConstraints(
@@ -116,7 +127,7 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
 
   
   private void handleSubmit() {
-    System.out.println("Spike Story submitted!");
+   
     dispose(); 
   }
 }
