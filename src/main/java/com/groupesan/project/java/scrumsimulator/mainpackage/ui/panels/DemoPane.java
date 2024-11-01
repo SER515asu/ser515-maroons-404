@@ -25,6 +25,14 @@ public class DemoPane extends JFrame implements BaseComponent {
     player.doRegister();
   }
 
+  public String getWelcomeLabelText() {
+    return welcomeLabel.getText();
+  }
+
+  public void setWelcomeLabelText(String text) {
+    welcomeLabel.setText(text);
+  }
+
   public void updateRoleLabel(String role) {
     welcomeLabel.setText("Hello " + role + "!");
   }

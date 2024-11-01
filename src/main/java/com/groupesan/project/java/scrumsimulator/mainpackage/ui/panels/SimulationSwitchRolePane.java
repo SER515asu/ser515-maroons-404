@@ -13,19 +13,27 @@ import javax.swing.JRadioButton;
 
 public class SimulationSwitchRolePane extends JFrame {
 
-  private JRadioButton developerRadioButton;
-  private JRadioButton scrumMasterRadioButton;
-  private JRadioButton productOwnerRadioButton;
+  public JRadioButton developerRadioButton;
+  public JRadioButton scrumMasterRadioButton;
+  public JRadioButton productOwnerRadioButton;
   private ButtonGroup roleButtonGroup;
   private JButton switchButton;
-  private String currentRole = "Developer";
+  private String currentRole = "";
 
   public String getCurrentRole() {
     return currentRole;
   }
 
   public void switchRole(DemoPane demoPane) {
-    currentRole = currentRole.equals("Developer") ? "" : "Developer";
+    if (developerRadioButton.isSelected()) {
+      currentRole = "Developer";
+    } else if (scrumMasterRadioButton.isSelected()) {
+      currentRole = "Scrum Master";
+    } else if (productOwnerRadioButton.isSelected()) {
+      currentRole = "Product Owner";
+    } else {
+      currentRole = "";
+    }
     demoPane.updateRoleLabel(currentRole);
   }
 
