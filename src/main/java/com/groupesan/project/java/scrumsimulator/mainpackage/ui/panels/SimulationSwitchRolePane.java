@@ -13,13 +13,31 @@ import javax.swing.JRadioButton;
 
 public class SimulationSwitchRolePane extends JFrame {
 
-  private JRadioButton developerRadioButton;
-  private JRadioButton scrumMasterRadioButton;
-  private JRadioButton productOwnerRadioButton;
+  public JRadioButton developerRadioButton;
+  public JRadioButton scrumMasterRadioButton;
+  public JRadioButton productOwnerRadioButton;
   private ButtonGroup roleButtonGroup;
   private JButton switchButton;
+  private String currentRole = "";
 
-  public SimulationSwitchRolePane() {
+  public String getCurrentRole() {
+    return currentRole;
+  }
+
+  public void switchRole(DemoPane demoPane) {
+    if (developerRadioButton.isSelected()) {
+      currentRole = "Developer";
+    } else if (scrumMasterRadioButton.isSelected()) {
+      currentRole = "Scrum Master";
+    } else if (productOwnerRadioButton.isSelected()) {
+      currentRole = "Product Owner";
+    } else {
+      currentRole = "";
+    }
+    demoPane.updateRoleLabel(currentRole);
+  }
+
+  public SimulationSwitchRolePane(DemoPane demoPane) {
     setTitle("Simulation Status");
     setSize(400, 200);
     setLocationRelativeTo(null);
@@ -48,7 +66,7 @@ public class SimulationSwitchRolePane extends JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
             // Logic for join button
-            onSwitchButtonClicked();
+            onSwitchButtonClicked(demoPane);
           }
         });
 
@@ -57,20 +75,24 @@ public class SimulationSwitchRolePane extends JFrame {
     add(panel);
   }
 
-  private void onSwitchButtonClicked() {
+  private void onSwitchButtonClicked(DemoPane demoPane) {
     if (developerRadioButton.isSelected()) {
+      currentRole = "Developer";
       JOptionPane.showMessageDialog(
           null, "Switched to Developer", "Role Switching", JOptionPane.PLAIN_MESSAGE);
     } else if (scrumMasterRadioButton.isSelected()) {
+      currentRole = "Scrum Master";
       JOptionPane.showMessageDialog(
           null, "Switched to Scrum Master", "Role Switching", JOptionPane.PLAIN_MESSAGE);
     } else if (productOwnerRadioButton.isSelected()) {
+      currentRole = "Product Owner";
       JOptionPane.showMessageDialog(
           null, "Switched to Product Owner", "Role Switching", JOptionPane.PLAIN_MESSAGE);
     } else {
       JOptionPane.showMessageDialog(
           null, "Failed to Switch Role", "Role Switching Error", JOptionPane.ERROR_MESSAGE);
     }
+    demoPane.updateRoleLabel(currentRole);
     roleButtonGroup.clearSelection();
     dispose();
     return;
