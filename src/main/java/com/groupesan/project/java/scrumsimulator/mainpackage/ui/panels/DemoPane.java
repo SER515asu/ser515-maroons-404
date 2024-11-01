@@ -171,7 +171,6 @@ public class DemoPane extends JFrame implements BaseComponent {
           @Override
           public void actionPerformed(ActionEvent e) {
             SimulationPane simulationPane = new SimulationPane();
-            simulationPane.setVisible(true);
           }
         });
 

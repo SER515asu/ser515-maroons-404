@@ -9,7 +9,6 @@ import lombok.Setter;
 public class DeveloperStore {
   private static DeveloperStore developerStore;
   List<String> developerList;
-  List<String> existingList;
 
   public static DeveloperStore getInstance() {
     if (developerStore == null) {
