@@ -49,6 +49,10 @@ public class SpikeStoryForm extends JFrame {
         developerNameField = new JPopupMenu();
         List<String> devList = new ArrayList<>();
         devList.add("rachana");
+        devList.add("rachit");
+        devList.add("Pavan");
+        devList.add("Dheemanth");
+        devList.add("Ritu");
         for (String developerName : devList) {
             JCheckBox jCheckBox = new JCheckBox(developerName);
             developerNameField.add(jCheckBox);
