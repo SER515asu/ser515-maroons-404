@@ -40,6 +40,7 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     myJpanel.setLayout(myGridbagLayout);
 
+    
     JLabel developerLabel = new JLabel("Developers Working:");
     myJpanel.add(
         developerLabel,
@@ -49,6 +50,7 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 0, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
+    
     JLabel effortPointsLabel = new JLabel("Effort Points:");
     myJpanel.add(
         effortPointsLabel,
@@ -58,6 +60,7 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 1, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
+    
     JLabel blockingStoryLabel = new JLabel("Select Blocking Story:");
     myJpanel.add(
         blockingStoryLabel,
@@ -67,30 +70,36 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
         new CustomConstraints(
             1, 2, GridBagConstraints.EAST, 1.0, 0.0, GridBagConstraints.HORIZONTAL));
 
+    
     JPanel buttonPanel = new JPanel(new GridBagLayout());
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.insets = new Insets(5, 5, 5, 5);
 
+    
     JButton cancelButton = new JButton("Cancel");
     gbc.gridx = 0;
     gbc.gridy = 0;
     gbc.gridwidth = 1;
     buttonPanel.add(cancelButton, gbc);
 
+    
     gbc.gridx = 1;
     gbc.gridy = 0;
     buttonPanel.add(submitButton, gbc);
 
+    
     cancelButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            dispose();
+            dispose(); 
           }
         });
 
+    
     submitButton.addActionListener(e -> handleSubmit());
 
+    
     myJpanel.add(
         buttonPanel,
         new CustomConstraints(0, 3, GridBagConstraints.CENTER, GridBagConstraints.NONE));
@@ -98,14 +107,16 @@ public class SpikeStoryForm extends JFrame implements BaseComponent {
     add(myJpanel);
   }
 
+  
   private String[] getUserStories() {
     UserStoryStore userStoryStore = UserStoryStore.getInstance();
     List<UserStory> userStories = userStoryStore.getUserStories();
     return userStories.stream().map(UserStory::getName).toArray(String[]::new);
   }
 
+  
   private void handleSubmit() {
     System.out.println("Spike Story submitted!");
-    dispose();
+    dispose(); 
   }
 }
