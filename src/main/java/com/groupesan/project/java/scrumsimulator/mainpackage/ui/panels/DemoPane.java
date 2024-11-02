@@ -25,18 +25,6 @@ public class DemoPane extends JFrame implements BaseComponent {
     player.doRegister();
   }
 
-  public String getWelcomeLabelText() {
-    return welcomeLabel.getText();
-  }
-
-  public void setWelcomeLabelText(String text) {
-    welcomeLabel.setText(text);
-  }
-
-  public void updateRoleLabel(String role) {
-    welcomeLabel.setText("Hello " + role + "!");
-  }
-
   /**
    * Initialization of Demo Pane. Demonstrates creation of User stories, Sprints, and Simulation
    * start.
@@ -52,7 +40,7 @@ public class DemoPane extends JFrame implements BaseComponent {
     myJpanel.setLayout(myGridbagLayout);
 
     welcomeLabel = new JLabel();
-    welcomeLabel.setText("Hello !");
+    welcomeLabel.setText("Hello!");
     myJpanel.add(
         welcomeLabel,
         new CustomConstraints(
@@ -246,8 +234,7 @@ public class DemoPane extends JFrame implements BaseComponent {
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            SimulationSwitchRolePane feedbackPanelUI = new SimulationSwitchRolePane(DemoPane.this);
-            feedbackPanelUI.switchRole(DemoPane.this);
+            SimulationSwitchRolePane feedbackPanelUI = new SimulationSwitchRolePane();
             feedbackPanelUI.setVisible(true);
           }
         });
