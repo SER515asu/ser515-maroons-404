@@ -35,8 +35,8 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.13.0'
 
     // JUnit 5 for unit testing
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
     // Mockito for mocking
     //testImplementation 'org.mockito:mockito-core:5.11.0'
