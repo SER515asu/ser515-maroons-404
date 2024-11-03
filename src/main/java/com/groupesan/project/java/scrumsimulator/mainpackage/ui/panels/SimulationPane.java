@@ -37,10 +37,6 @@ import javax.swing.border.EmptyBorder;
 public class SimulationPane extends JFrame {
   private JButton joinButton;
   private JPopupMenu developerNameField;
-  private JRadioButton playerRadioButton;
-  private JRadioButton teacherRadioButton;
-  private ButtonGroup typeButtonGroup;
-  private JComboBox<String> roleComboBox;
   private int countOfDevelopers = 0;
 
   private static final List<String> allowedRoleNames =
@@ -88,7 +84,6 @@ public class SimulationPane extends JFrame {
             developerNameField.show(dropdownButton, 0, dropdownButton.getHeight());
           }
         });
-    //panel.setBorder(new EmptyBorder(50, 10, 50, 10));
     
     panel.add(
         developerLabel,
@@ -108,7 +103,6 @@ public class SimulationPane extends JFrame {
             new CustomConstraints(
               1, 6, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
           
-    //displayExistingDeveloperList.setSize(300, 10);
     joinButton.addActionListener(
         new ActionListener() {
           @Override
@@ -145,27 +139,8 @@ public class SimulationPane extends JFrame {
   
   displayExistingDeveloperList.setText(selectedOptions.toString());   
   Dimension dimension = new Dimension(200,(countOfDevelopers*10)+20);
-  displayExistingDeveloperList.setPreferredSize(dimension);  // Width: 200px, Height: 30px
+  displayExistingDeveloperList.setPreferredSize(dimension); 
 
   }
-  // private void onJoinButtonClicked() {
-  // String username = developerNameField.getText();
-  /*String type = playerRadioButton.isSelected() ? "player" : "teacher";
-  String roleName = roleComboBox.getSelectedItem().toString();*/
-
-  // if (username.isEmpty()) {
-  //   JOptionPane.showMessageDialog(
-  //       null, "Developer name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
-  //   return;
-  // }
-
-  // AddUser.addUser(username);
-  // clearFields();
-
+ 
 }
-
-  // private void clearFields() {
-  //   developerNameField.setText("");
-  //   // typeButtonGroup.clearSelection();
-  //   // roleComboBox.setSelectedIndex(0);
-  // }
