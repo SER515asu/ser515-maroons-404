@@ -197,7 +197,7 @@ public class DemoPane extends JFrame implements BaseComponent {
         new CustomConstraints(
             5, 1, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
-    // *** Role Selection now through SimulationUI ***
+    // * Role Selection now through SimulationUI *
     // JButton roleSelectionButton = new JButton("Role Selection");
     // roleSelectionButton.addActionListener(
     //         new ActionListener() {
@@ -212,7 +212,7 @@ public class DemoPane extends JFrame implements BaseComponent {
     //         roleSelectionButton,
     //         new CustomConstraints(
     //                 4, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
-    // *** Role Selection now through SimulationUI ***
+    // * Role Selection now through SimulationUI *
 
     // Join Simulation button
     JButton joinSimulationButton = new JButton("Join Simulation");

@@ -1,16 +1,13 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.groupesan.project.java.scrumsimulator.mainpackage.impl.Developer;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.DeveloperStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryFactory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels.DemoPane;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -34,7 +31,7 @@ public class App {
         });
   }
 
-  private void initializeDeveloperList(){
+  private void initializeDeveloperList() {
 
     List<String> developerName = new ArrayList<>();
     developerName.add("Rachit Kulkarni");
@@ -42,10 +39,10 @@ public class App {
     developerName.add("Pavan Samarth");
     developerName.add("Rachana Angara");
     developerName.add("Ritu Malav");
-    
-    DeveloperStore.getInstance().setDeveloperList(developerName);
 
+    DeveloperStore.getInstance().setDeveloperList(developerName);
   }
+
   private void initializeUserStories() {
     UserStory a =
         UserStoryFactory.getInstance()
