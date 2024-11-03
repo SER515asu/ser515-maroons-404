@@ -25,6 +25,10 @@ public class DemoPane extends JFrame implements BaseComponent {
     player.doRegister();
   }
 
+  public void updateRoleLabel(String role) {
+    welcomeLabel.setText("Hello " + role + "!");
+  }
+
   /**
    * Initialization of Demo Pane. Demonstrates creation of User stories, Sprints, and Simulation
    * start.
