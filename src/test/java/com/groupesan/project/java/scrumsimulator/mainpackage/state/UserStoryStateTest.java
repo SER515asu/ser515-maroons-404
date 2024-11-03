@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class UserStoryStateTest {
 
-  UserStory testUserStory = new UserStory("test", "description", 1.0, 1.0, "new");
+  UserStory testUserStory = new UserStory("test", "description", 1.0, 1.0, "new", null);
 
   @Test
   public void testUserStoryUnselectedState() {

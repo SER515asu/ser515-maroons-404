@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 public class UserStoryStateManager {
 
@@ -39,38 +40,73 @@ public class UserStoryStateManager {
     return userStories;
   }
 
-  /**
-   * Method to update the status of a selected User Story.
-   *
-   * @param userStoryDescription The description of the User Story: String
-   * @param newStatus The new status the User Story will be given : String
-   */
-  public static void updateUserStoryStatus(int userStoryId, String newStatus) {
+  public static void updateUserStoryStatus(
+      String selectedUserStory,
+      String selectedStatus,
+      String selectedBlockingUserStory,
+      JPanel panel,
+      String newStatus) {
     try {
+      // logic to update status of blocked userstory
 
-      List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
-      for (UserStory userStory : userStories) {
-        if (userStory.getId().getValue() == userStoryId) {
-          // update the user story's status
-          userStory.setStatus(newStatus);
+      if (selectedUserStory != null && selectedStatus != null) {
+        int userStoryId = Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
+        if ("blocker".equals(selectedStatus)) {
+
+          if (selectedBlockingUserStory == null || selectedBlockingUserStory.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                panel,
+                "Please select a Blocking User Story",
+                "Validation Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+          }
         }
-      }
-      UserStoryStore.getInstance().setUserStories(userStories);
-      ObjectMapper objectMapper = new ObjectMapper();
-      JsonNode root = objectMapper.readTree(new File(FILE_PATH));
+        int blockingUserStoryId =
+            Integer.parseInt(
+                selectedBlockingUserStory.split(":")[0].replaceAll("[^0-9]", "").strip());
+        UserStory blockingUserStory = null;
 
-      JsonNode sprints = root.path("Simulation").path("Sprints");
-      for (JsonNode sprint : sprints) {
-        JsonNode userStoriesInSprint = sprint.path("User Stories");
-        for (JsonNode userStory : userStoriesInSprint) {
-          if (userStory.path("Id").asText().equals(String.valueOf(userStoryId))) {
-            ((com.fasterxml.jackson.databind.node.ObjectNode) userStory).put("Status", newStatus);
+        for (UserStory story : UserStoryStore.getInstance().getUserStories()) {
+          int storyId = Integer.parseInt(story.getId().toString().replaceAll("[^0-9]", "").strip());
+          if (storyId == blockingUserStoryId) {
+            blockingUserStory = story;
             break;
           }
         }
+        if (blockingUserStory != null) {
+          blockingUserStory.setStatus("in progress");
+        }
+        List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
+        for (UserStory userStory : userStories) {
+          if (userStory.getId().getValue() == userStoryId) {
+            // update the user story's status
+            userStory.setStatus(newStatus);
+            userStory.setBlockingUserStory(blockingUserStory);
+          }
+        }
+        UserStoryStore.getInstance().setUserStories(userStories);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode root = objectMapper.readTree(new File(FILE_PATH));
+
+        JsonNode sprints = root.path("Simulation").path("Sprints");
+        for (JsonNode sprint : sprints) {
+          JsonNode userStoriesInSprint = sprint.path("User Stories");
+          for (JsonNode userStory : userStoriesInSprint) {
+            if (userStory.path("Id").asText().equals(String.valueOf(userStoryId))) {
+              ((com.fasterxml.jackson.databind.node.ObjectNode) userStory).put("Status", newStatus);
+              break;
+            }
+          }
+        }
+
+        objectMapper.writeValue(new File(FILE_PATH), root);
+        JOptionPane.showMessageDialog(null, "Status updated successfully!");
+
+      } else {
+        JOptionPane.showMessageDialog(null, "Please select a User Story and Status");
       }
 
-      objectMapper.writeValue(new File(FILE_PATH), root);
     } catch (IOException e) {
       e.printStackTrace();
     }
