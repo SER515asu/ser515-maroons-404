@@ -49,4 +49,29 @@ public class UserStoryStore {
     userStories.remove(index);
     setUserStories(userStories);
   }
+  public UserStory getUserStoryByName(String name) {
+    for (UserStory story : userStories) {
+        if (story.getName().equals(name)) {
+            return story;
+        }
+    }
+    return null; // Return null if not found
+  }
+  public void registerUserStory(UserStory userStory) {
+    userStory.register(); // Calls the protected register() within the same package
+    addUserStory(userStory); // Add the registered story to the store
+}
+
+
+  public void updateUserStory(UserStory updatedStory) {
+    for (int i = 0; i < userStories.size(); i++) {
+        if (userStories.get(i).getName().equals(updatedStory.getName())) {
+            userStories.set(i, updatedStory); 
+            return;
+        }
+    }
+
+    userStories.add(updatedStory); 
+
+}
 }
