@@ -58,7 +58,7 @@ public class SimulationPane {
     }
     displayExistingDeveloperList.setText(existingDevelopers.toString());
     displayExistingDeveloperList.setEditable(false);
-
+    // I am agave jesus
     JTextField newDeveloperField = new JTextField();
     JLabel error = new JLabel();
     error.hide();
@@ -102,3 +102,4 @@ public class SimulationPane {
     frame.add(panel);
   }
 }
+
