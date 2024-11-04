@@ -80,7 +80,7 @@ public class UserStoryStateManager {
         List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
         for (UserStory userStory : userStories) {
           if (userStory.getId().getValue() == userStoryId) {
-            // update the user story's status
+            // update the user story status
             userStory.setStatus(newStatus);
             userStory.setBlockingUserStory(blockingUserStory);
           }
