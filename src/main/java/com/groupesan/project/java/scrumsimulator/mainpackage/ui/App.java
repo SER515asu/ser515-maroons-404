@@ -72,25 +72,25 @@ public class App {
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS5", "description1", 1.0, 1.0, "new");
     e.doRegister();
-    UserStoryStore.getInstance().addUserStory(a);
+    UserStoryStore.getInstance().addUserStory(e);
 
     UserStory f =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS6", "description1", 1.0, 1.0, "new");
     f.doRegister();
-    UserStoryStore.getInstance().addUserStory(a);
+    UserStoryStore.getInstance().addUserStory(f);
 
     UserStory g =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS7", "description1", 1.0, 1.0, "new");
     g.doRegister();
-    UserStoryStore.getInstance().addUserStory(a);
+    UserStoryStore.getInstance().addUserStory(g);
 
     UserStory h =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS8", "description1", 1.0, 1.0, "new");
     h.doRegister();
-    UserStoryStore.getInstance().addUserStory(a);
+    UserStoryStore.getInstance().addUserStory(h);
   }
 
   private void loadTheme() {
