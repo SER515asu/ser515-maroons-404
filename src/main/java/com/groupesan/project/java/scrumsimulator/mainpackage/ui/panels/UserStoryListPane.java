@@ -27,8 +27,8 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
   public void init() {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setTitle("User Story list");
-    setSize(400, 300);
-
+    setSize(800, UserStoryStore.getInstance().getUserStories().size() * 10 + 400);
+    setLocationRelativeTo(null);
     GridBagLayout myGridbagLayout = new GridBagLayout();
     JPanel myJpanel = new JPanel();
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -85,14 +85,14 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
         newSprintButton,
         new CustomConstraints(
             0, 1, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
-
+    UserStoryListPane userStoryListPane = this;
     // Create the "Create Spike Story" button
     JButton createSpikeStoryButton = new JButton("Create Spike Story");
     createSpikeStoryButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            SpikeStoryForm spikeForm = new SpikeStoryForm();
+            SpikeStoryForm spikeForm = new SpikeStoryForm(userStoryListPane);
             spikeForm.setVisible(true);
           }
         });
