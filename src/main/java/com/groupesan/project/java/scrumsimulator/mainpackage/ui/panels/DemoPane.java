@@ -55,10 +55,13 @@ public class DemoPane extends JFrame implements BaseComponent {
         new CustomConstraints(
             0, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
     JButton blockerProbability = new JButton("Fine Tune Selected Blocker's Probability");
+    JButton solutionProbability = new JButton("Fine Tune Selected Solution's Probability");
 
     JButton sprintsButton = new JButton("Sprints");
     JLabel probabilityLabel = new JLabel("Probability");
     JComboBox<String> blockerDropdown = new JComboBox<String>();
+    JComboBox<String> solutionDropdown = new JComboBox<String>();
+
     JTextField probabilityField = new JTextField();
     probabilityField.setEditable(false);
     JLabel rangeLabel = new JLabel("Range (0-1)");
@@ -147,6 +150,98 @@ public class DemoPane extends JFrame implements BaseComponent {
                     2, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
             panel.add(
                 blockerProbability,
+                new CustomConstraints(
+                    1, 3, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            frame.setVisible(true);
+            frame.add(panel);
+          }
+        });
+    solutionDropdown.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            String selectedDropdownId =
+                solutionDropdown.getSelectedItem().toString().split("-")[0].strip();
+            for (UserStory userStory :
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList().keySet()) {
+              if (userStory.getId().toString().equalsIgnoreCase(selectedDropdownId)) {
+                probabilityField.setText(
+                    String.valueOf(
+                        BlockerSolutionListStore.getInstance()
+                            .getDefaultSolutionList()
+                            .get(userStory)
+                            .getProbability()));
+                break;
+              }
+            }
+          }
+        });
+    solutionProbability.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            Double newRange = Double.valueOf(rangeField.getText());
+            Map<UserStory, SolutionListValue> solutionList =
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList();
+            for (UserStory userStory : solutionList.keySet()) {
+              if (userStory
+                  .getId()
+                  .toString()
+                  .equalsIgnoreCase(
+                      solutionDropdown.getSelectedItem().toString().split("-")[0].strip())) {
+                SolutionListValue solutionListValue = solutionList.get(userStory);
+                solutionListValue.setProbability(newRange);
+                solutionList.put(userStory, solutionListValue);
+                probabilityField.setText(newRange.toString());
+                break;
+              }
+            }
+            rangeField.setText("");
+          }
+        });
+
+    solutionSetButton.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setTitle("Fine tuning Solution probability");
+            frame.setSize(500, 300);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridBagLayout());
+            JLabel listOfSolution = new JLabel("Solution");
+
+            for (UserStory userStory :
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList().keySet()) {
+              solutionDropdown.addItem(userStory.getId() + "-" + userStory.getName());
+            }
+
+            panel.add(
+                listOfSolution,
+                new CustomConstraints(
+                    0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                solutionDropdown,
+                new CustomConstraints(
+                    2, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                probabilityLabel,
+                new CustomConstraints(
+                    0, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                probabilityField,
+                new CustomConstraints(
+                    2, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                rangeLabel,
+                new CustomConstraints(
+                    0, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                rangeField,
+                new CustomConstraints(
+                    2, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                solutionProbability,
                 new CustomConstraints(
                     1, 3, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
             frame.setVisible(true);
