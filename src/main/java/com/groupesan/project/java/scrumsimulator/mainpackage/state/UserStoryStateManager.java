@@ -60,8 +60,12 @@ public class UserStoryStateManager {
         return;
       }
     }
-    int blockingUserStoryId =
-        Integer.parseInt(selectedBlockingUserStory.split(":")[0].replaceAll("[^0-9]", "").strip());
+    int blockingUserStoryId = 0;
+    if (!selectedBlockingUserStory.isEmpty()) {
+      blockingUserStoryId =
+          Integer.parseInt(
+              selectedBlockingUserStory.split(":")[0].replaceAll("[^0-9]", "").strip());
+    }
     UserStory blockingUserStory = null;
 
     for (UserStory story : UserStoryStore.getInstance().getUserStories()) {
