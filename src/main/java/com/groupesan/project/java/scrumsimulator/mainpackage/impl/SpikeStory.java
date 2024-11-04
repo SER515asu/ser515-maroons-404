@@ -10,6 +10,7 @@ public class SpikeStory {
     for (UserStory userStoryLoop : UserStoryStore.getInstance().getUserStories()) {
       if (userStoryLoop.getName().equalsIgnoreCase(userStoryName)) {
         blockedUserStory = userStoryLoop;
+        blockedUserStory.setStatus("blocker");
         break;
       }
     }
@@ -17,14 +18,12 @@ public class SpikeStory {
     UserStory userStory =
         new UserStory(
             "Spike Story",
-            "This is a spike story,created when a user story is blocked by another one",
+            "Story created when blocked",
             pointsValue,
             blockedUserStory.getBusinessValue(),
             "in progress",
             null);
     userStory.doRegister();
-    List<UserStory> userStoryList = UserStoryStore.getInstance().getUserStories();
-    userStoryList.add(userStory);
-    UserStoryStore.getInstance().setUserStories(userStoryList);
+    UserStoryStore.getInstance().addUserStory(userStory);
   }
 }
