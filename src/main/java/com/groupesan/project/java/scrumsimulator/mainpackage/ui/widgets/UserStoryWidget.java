@@ -19,6 +19,8 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
   JLabel name;
   JLabel desc;
   JLabel status;
+  JLabel blocking_us;
+  JLabel sprint_number;
 
   // TODO: This is a non transient field and this class is supposed to be serializable. this needs
   // to be dealt with before this object can be serialized
@@ -61,6 +63,15 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     desc = new JLabel(userStory.getDescription());
     desc.addMouseListener(openEditDialog);
     status = new JLabel(userStory.getStatus());
+    String blockingUserStoryName =
+        (userStory.getBlockingUserStory() != null
+                && userStory.getBlockingUserStory().getName() != null)
+            ? userStory.getBlockingUserStory().getName()
+            : "No blocking user story"; // or any default message you prefer
+
+    blocking_us = new JLabel(blockingUserStoryName);
+    sprint_number = new JLabel(Double.toString(userStory.getPointValue()));
+    sprint_number.addMouseListener(openEditDialog);
 
     GridBagLayout myGridBagLayout = new GridBagLayout();
 
@@ -86,5 +97,14 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         status,
         new CustomConstraints(
             4, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        blocking_us,
+        new CustomConstraints(
+            5, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+
+    add(
+        sprint_number,
+        new CustomConstraints(
+            6, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
   }
 }
