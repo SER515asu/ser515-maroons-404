@@ -440,7 +440,8 @@ public class DemoPane extends JFrame implements BaseComponent {
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            SimulationSwitchRolePane feedbackPanelUI = new SimulationSwitchRolePane();
+            SimulationSwitchRolePane feedbackPanelUI = new SimulationSwitchRolePane(DemoPane.this);
+            feedbackPanelUI.switchRole(DemoPane.this);
             feedbackPanelUI.setVisible(true);
           }
         });
