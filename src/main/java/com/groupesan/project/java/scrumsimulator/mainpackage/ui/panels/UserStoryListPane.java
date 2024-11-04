@@ -27,8 +27,8 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
   public void init() {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setTitle("User Story list");
-    setSize(400, 300);
-
+    setSize(400, UserStoryStore.getInstance().getUserStories().size() * 10 + 400);
+    setLocationRelativeTo(null);
     GridBagLayout myGridbagLayout = new GridBagLayout();
     JPanel myJpanel = new JPanel();
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
