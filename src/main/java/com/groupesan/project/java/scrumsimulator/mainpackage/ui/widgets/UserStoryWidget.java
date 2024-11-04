@@ -1,18 +1,17 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.widgets;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels.EditUserStoryForm;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels.UserStoryListPane;
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class UserStoryWidget extends JPanel implements BaseComponent {
 
@@ -21,7 +20,8 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
   JLabel name;
   JLabel desc;
   JLabel status;
-  JLabel developer;  JLabel blocking_us;
+  JLabel developer;
+  JLabel blocking_us;
   JLabel sprint_number;
 
   // TODO: This is a non transient field and this class is supposed to be serializable. this needs
@@ -65,7 +65,8 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     desc = new JLabel(userStory.getDescription());
     desc.addMouseListener(openEditDialog);
     status = new JLabel(userStory.getStatus());
-    developer = new JLabel(userStory.getDevelopers());    String blockingUserStoryName =
+    developer = new JLabel(userStory.getDevelopers());
+    String blockingUserStoryName =
         (userStory.getBlockingUserStory() != null
                 && userStory.getBlockingUserStory().getName() != null)
             ? userStory.getBlockingUserStory().getName()
