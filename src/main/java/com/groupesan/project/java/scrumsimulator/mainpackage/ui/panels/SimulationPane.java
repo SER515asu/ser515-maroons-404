@@ -1,20 +1,22 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
-import com.groupesan.project.java.scrumsimulator.mainpackage.impl.AddUser;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.Developer;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.DeveloperStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.JPopupMenu;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -25,83 +27,79 @@ import javax.swing.JTextField;
  * @version 0.1
  * @since 2023-11-8
  */
-public class SimulationPane extends JFrame {
-  private JButton joinButton;
-  private JTextField usernameField;
-  private JRadioButton playerRadioButton;
-  private JRadioButton teacherRadioButton;
-  private ButtonGroup typeButtonGroup;
-  private JComboBox<String> roleComboBox;
-
-  private static final List<String> allowedRoleNames =
-      Arrays.asList("pig", "chicken", "product owner", "scrum master");
+public class SimulationPane {
+  private JButton addDeveloperButton;
+  private JPopupMenu developerNameField;
+  private int countOfDevelopers = 0;
+  private String windowWidth;
 
   /** The simulation Pane for adding new users. */
   public SimulationPane() {
-    setTitle("Developer Details");
-    setSize(400, 200);
-    setLocationRelativeTo(null);
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+    JFrame frame = new JFrame();
+    windowWidth = String.valueOf(300);
+    frame.setTitle("Developer Details");
+    frame.setSize(Integer.parseInt(windowWidth), 270);
+    frame.setLocationRelativeTo(null);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setVisible(true);
     JPanel panel = new JPanel();
-    panel.setLayout(new GridLayout(4, 2));
+    GridBagLayout gridBagLayout = new GridBagLayout();
+    panel.setLayout(gridBagLayout);
 
-    JLabel usernameLabel = new JLabel("Developer Name:");
-    usernameField = new JTextField(20);
-    panel.add(usernameLabel);
-    panel.add(usernameField);
+    JLabel developerLabel = new JLabel("Developer Name:");
+    List<JCheckBox> checkBoxMenuItems = new ArrayList<>();
+    addDeveloperButton = new JButton("Add Developer");
+    JTextArea displayExistingDeveloperList = new JTextArea();
 
-    /*JLabel typeLabel = new JLabel("Type:");
-    panel.add(typeLabel);
+    StringBuilder existingDevelopers = new StringBuilder();
+    for (String developer : DeveloperStore.getInstance().getDeveloperList()) {
+      countOfDevelopers++;
+      existingDevelopers.append(developer).append("\n");
+    }
+    displayExistingDeveloperList.setText(existingDevelopers.toString());
+    displayExistingDeveloperList.setEditable(false);
 
-    typeButtonGroup = new ButtonGroup();
-    playerRadioButton = new JRadioButton("Player");
-    teacherRadioButton = new JRadioButton("Teacher");
-    typeButtonGroup.add(playerRadioButton);
-    typeButtonGroup.add(teacherRadioButton);
+    JTextField newDeveloperField = new JTextField();
+    JLabel error = new JLabel();
+    error.hide();
+    panel.add(
+        developerLabel,
+        new CustomConstraints(
+            0, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
+    panel.add(
+        newDeveloperField,
+        new CustomConstraints(
+            1, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
+    panel.add(
+        error,
+        new CustomConstraints(
+            0, 2, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
-    panel.add(playerRadioButton);
-    panel.add(new JLabel(""));
-    panel.add(teacherRadioButton);
+    panel.add(
+        addDeveloperButton,
+        new CustomConstraints(
+            0, 3, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
-    JLabel roleNameLabel = new JLabel("Role Name:");
-    roleComboBox = new JComboBox<>(allowedRoleNames.toArray(new String[0]));
-    panel.add(roleNameLabel);
-    panel.add(roleComboBox);*/
+    panel.add(
+        new JLabel("Developer list present in the system"),
+        new CustomConstraints(
+            0, 4, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
+    panel.add(
+        displayExistingDeveloperList,
+        new CustomConstraints(
+            0, 5, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
 
-    joinButton = new JButton("Add Developer");
-    joinButton.addActionListener(
+    addDeveloperButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            // Logic for join button
-            onJoinButtonClicked();
+            countOfDevelopers =
+                Developer.appendSelectedOptions(
+                    newDeveloperField.getText(), displayExistingDeveloperList, error, frame);
           }
         });
-
-    setLayout(new BorderLayout());
-    add(joinButton, BorderLayout.SOUTH);
-    add(panel);
-  }
-
-  private void onJoinButtonClicked() {
-    String username = usernameField.getText();
-    /*String type = playerRadioButton.isSelected() ? "player" : "teacher";
-    String roleName = roleComboBox.getSelectedItem().toString();*/
-
-    if (username.isEmpty()) {
-      JOptionPane.showMessageDialog(
-          null, "Developer name cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-
-    AddUser.addUser(username);
-    clearFields();
-  }
-
-  private void clearFields() {
-    usernameField.setText("");
-    // typeButtonGroup.clearSelection();
-    // roleComboBox.setSelectedIndex(0);
+    frame.setLayout(new BorderLayout());
+    frame.add(panel);
   }
 }
