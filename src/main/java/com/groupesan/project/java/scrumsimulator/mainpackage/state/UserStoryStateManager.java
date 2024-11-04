@@ -45,70 +45,58 @@ public class UserStoryStateManager {
       String selectedStatus,
       String selectedBlockingUserStory,
       JPanel panel,
-      String newStatus) {
-    try {
-      // logic to update status of blocked userstory
+      String newStatus)
+      throws IOException {
 
-      if (selectedUserStory != null && selectedStatus != null) {
-        int userStoryId = Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
-        if ("blocker".equals(selectedStatus)) {
+    int userStoryId = Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
+    if ("blocker".equals(selectedStatus)) {
 
-          if (selectedBlockingUserStory == null || selectedBlockingUserStory.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(
-                panel,
-                "Please select a Blocking User Story",
-                "Validation Error",
-                JOptionPane.ERROR_MESSAGE);
-            return;
-          }
-        }
-        int blockingUserStoryId =
-            Integer.parseInt(
-                selectedBlockingUserStory.split(":")[0].replaceAll("[^0-9]", "").strip());
-        UserStory blockingUserStory = null;
-
-        for (UserStory story : UserStoryStore.getInstance().getUserStories()) {
-          int storyId = Integer.parseInt(story.getId().toString().replaceAll("[^0-9]", "").strip());
-          if (storyId == blockingUserStoryId) {
-            blockingUserStory = story;
-            break;
-          }
-        }
-        if (blockingUserStory != null) {
-          blockingUserStory.setStatus("in progress");
-        }
-        List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
-        for (UserStory userStory : userStories) {
-          if (userStory.getId().getValue() == userStoryId) {
-            // update the user story status
-            userStory.setStatus(newStatus);
-            userStory.setBlockingUserStory(blockingUserStory);
-          }
-        }
-        UserStoryStore.getInstance().setUserStories(userStories);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode root = objectMapper.readTree(new File(FILE_PATH));
-
-        JsonNode sprints = root.path("Simulation").path("Sprints");
-        for (JsonNode sprint : sprints) {
-          JsonNode userStoriesInSprint = sprint.path("User Stories");
-          for (JsonNode userStory : userStoriesInSprint) {
-            if (userStory.path("Id").asText().equals(String.valueOf(userStoryId))) {
-              ((com.fasterxml.jackson.databind.node.ObjectNode) userStory).put("Status", newStatus);
-              break;
-            }
-          }
-        }
-
-        objectMapper.writeValue(new File(FILE_PATH), root);
-        JOptionPane.showMessageDialog(null, "Status updated successfully!");
-
-      } else {
-        JOptionPane.showMessageDialog(null, "Please select a User Story and Status");
+      if (selectedBlockingUserStory == null || selectedBlockingUserStory.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(
+            panel,
+            "Please select a Blocking User Story",
+            "Validation Error",
+            JOptionPane.ERROR_MESSAGE);
+        return;
       }
-
-    } catch (IOException e) {
-      e.printStackTrace();
     }
+    int blockingUserStoryId =
+        Integer.parseInt(selectedBlockingUserStory.split(":")[0].replaceAll("[^0-9]", "").strip());
+    UserStory blockingUserStory = null;
+
+    for (UserStory story : UserStoryStore.getInstance().getUserStories()) {
+      int storyId = Integer.parseInt(story.getId().toString().replaceAll("[^0-9]", "").strip());
+      if (storyId == blockingUserStoryId) {
+        blockingUserStory = story;
+        break;
+      }
+    }
+    if (blockingUserStory != null) {
+      blockingUserStory.setStatus("in progress");
+    }
+    List<UserStory> userStories = UserStoryStore.getInstance().getUserStories();
+    for (UserStory userStory : userStories) {
+      if (userStory.getId().getValue() == userStoryId) {
+        // update the user story status
+        userStory.setStatus(newStatus);
+        userStory.setBlockingUserStory(blockingUserStory);
+      }
+    }
+    UserStoryStore.getInstance().setUserStories(userStories);
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode root = objectMapper.readTree(new File(FILE_PATH));
+
+    JsonNode sprints = root.path("Simulation").path("Sprints");
+    for (JsonNode sprint : sprints) {
+      JsonNode userStoriesInSprint = sprint.path("User Stories");
+      for (JsonNode userStory : userStoriesInSprint) {
+        if (userStory.path("Id").asText().equals(String.valueOf(userStoryId))) {
+          ((com.fasterxml.jackson.databind.node.ObjectNode) userStory).put("Status", newStatus);
+          break;
+        }
+      }
+    }
+
+    objectMapper.writeValue(new File(FILE_PATH), root);
   }
 }

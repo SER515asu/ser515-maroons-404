@@ -5,6 +5,7 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.UserStoryStateManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -93,12 +94,22 @@ public class UpdateUserStoryPanel extends JFrame {
             String selectedUserStory = (String) userStoryComboBox.getSelectedItem();
             String selectedStatus = (String) statusComboBox.getSelectedItem();
             String selectedBlockingUserStory = (String) blockingUserStoryComboBox.getSelectedItem();
-            UserStoryStateManager.updateUserStoryStatus(
-                selectedUserStory,
-                selectedStatus,
-                selectedBlockingUserStory,
-                panel,
-                selectedStatus);
+            // logic to update status of blocked userstory
+            if (selectedUserStory != null && selectedStatus != null) {
+              try {
+                UserStoryStateManager.updateUserStoryStatus(
+                    selectedUserStory,
+                    selectedStatus,
+                    selectedBlockingUserStory,
+                    panel,
+                    selectedStatus);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
+              JOptionPane.showMessageDialog(null, "Status updated successfully!");
+            } else {
+              JOptionPane.showMessageDialog(null, "Please select a User Story and Status");
+            }
             dispose();
           }
         });
