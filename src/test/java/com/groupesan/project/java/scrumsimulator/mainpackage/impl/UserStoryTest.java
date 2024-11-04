@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 public class UserStoryTest {
   private UserStory myUserStory;
   private UserStory userStory;
+  private UserStory newUserStory;
 
   @BeforeEach
   public void setup() {
@@ -18,7 +19,8 @@ public class UserStoryTest {
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0, "in progress");
 
-    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "new");
+    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "new", null);
+    newUserStory = new UserStory("Blocking Story", "Description", 5.0, 8.0, "blocker", null);
   }
 
   @Test
@@ -77,10 +79,19 @@ public class UserStoryTest {
     assertEquals(8.0, userStory.getBusinessValue(), 0.01);
   }
 
+  @Test
   public void testStatusUsingConstructor() {
-
     assertEquals(myUserStory.getStatus(), "in progress");
     myUserStory.setStatus("new");
     assertEquals(myUserStory.getStatus(), "new");
+  }
+
+  @Test
+  public void testStoryUsingConstructor() {
+    userStory.setBlockingUserStory(newUserStory);
+    assertEquals(
+        newUserStory,
+        userStory.getBlockingUserStory(),
+        "The blocking user story should match the one set.");
   }
 }

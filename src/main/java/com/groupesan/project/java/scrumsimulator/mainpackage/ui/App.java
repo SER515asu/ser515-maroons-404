@@ -1,10 +1,13 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.DeveloperStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryFactory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels.DemoPane;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -20,12 +23,25 @@ public class App {
           public void run() {
             // Initialize User Stories in helper function now
             initializeUserStories();
-
+            initializeDeveloperList();
+            initializeDeveloperList();
             // Load DemoPane
             DemoPane form = new DemoPane();
             form.setVisible(true);
           }
         });
+  }
+
+  private void initializeDeveloperList() {
+
+    List<String> developerName = new ArrayList<>();
+    developerName.add("Rachit Kulkarni");
+    developerName.add("Dheemanth Raviraj");
+    developerName.add("Pavan Samarth");
+    developerName.add("Rachana Angara");
+    developerName.add("Ritu Malav");
+
+    DeveloperStore.getInstance().setDeveloperList(developerName);
   }
 
   private void initializeUserStories() {
@@ -46,6 +62,35 @@ public class App {
             .createNewUserStory("predefinedUS3", "description3", 3.0, 3.0, "completed");
     c.doRegister();
     UserStoryStore.getInstance().addUserStory(c);
+    UserStory d =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS4", "description1", 1.0, 1.0, "new");
+    d.doRegister();
+    UserStoryStore.getInstance().addUserStory(d);
+
+    UserStory e =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS5", "description1", 1.0, 1.0, "new");
+    a.doRegister();
+    UserStoryStore.getInstance().addUserStory(a);
+
+    UserStory f =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS6", "description1", 1.0, 1.0, "new");
+    a.doRegister();
+    UserStoryStore.getInstance().addUserStory(a);
+
+    UserStory g =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS7", "description1", 1.0, 1.0, "new");
+    a.doRegister();
+    UserStoryStore.getInstance().addUserStory(a);
+
+    UserStory h =
+        UserStoryFactory.getInstance()
+            .createNewUserStory("predefinedUS8", "description1", 1.0, 1.0, "new");
+    a.doRegister();
+    UserStoryStore.getInstance().addUserStory(a);
   }
 
   private void loadTheme() {
