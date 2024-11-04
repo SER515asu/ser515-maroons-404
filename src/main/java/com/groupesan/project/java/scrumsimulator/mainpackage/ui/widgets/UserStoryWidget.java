@@ -10,7 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class UserStoryWidget extends JPanel implements BaseComponent {
 
@@ -19,6 +20,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
   JLabel name;
   JLabel desc;
   JLabel status;
+  JLabel developer;
   JLabel blocking_us;
   JLabel sprint_number;
 
@@ -63,6 +65,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     desc = new JLabel(userStory.getDescription());
     desc.addMouseListener(openEditDialog);
     status = new JLabel(userStory.getStatus());
+    developer = new JLabel(userStory.getDevelopers());
     String blockingUserStoryName =
         (userStory.getBlockingUserStory() != null
                 && userStory.getBlockingUserStory().getName() != null)
@@ -97,6 +100,10 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         status,
         new CustomConstraints(
             4, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        developer,
+        new CustomConstraints(
+            5, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
     add(
         blocking_us,
         new CustomConstraints(

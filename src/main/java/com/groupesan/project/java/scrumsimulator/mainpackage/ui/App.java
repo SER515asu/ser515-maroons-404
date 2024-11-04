@@ -71,25 +71,25 @@ public class App {
     UserStory e =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS5", "description1", 1.0, 1.0, "new");
-    a.doRegister();
+    e.doRegister();
     UserStoryStore.getInstance().addUserStory(a);
 
     UserStory f =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS6", "description1", 1.0, 1.0, "new");
-    a.doRegister();
+    f.doRegister();
     UserStoryStore.getInstance().addUserStory(a);
 
     UserStory g =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS7", "description1", 1.0, 1.0, "new");
-    a.doRegister();
+    g.doRegister();
     UserStoryStore.getInstance().addUserStory(a);
 
     UserStory h =
         UserStoryFactory.getInstance()
             .createNewUserStory("predefinedUS8", "description1", 1.0, 1.0, "new");
-    a.doRegister();
+    h.doRegister();
     UserStoryStore.getInstance().addUserStory(a);
   }
 
