@@ -16,11 +16,10 @@ public class AddUser {
    * Implements the functionality of add user for the SimulationPane. Adds a user with a username,
    * type, and role.
    *
-   * @param username name of the user: String
-   * @param type type of user; player or teacher: String
-   * @param roleName name of role: String
+   * @param username name of the user: String //@param type type of user; player or teacher: String
+   *     //@param roleName name of role: String
    */
-  public static void addUser(String username, String type, String roleName) {
+  public static void addUser(String username) {
     FileInputStream fis = null;
     FileWriter fileWriter = null;
 
@@ -37,11 +36,11 @@ public class AddUser {
       String userId = "u" + System.currentTimeMillis();
       newUser.put("ID", userId);
       newUser.put("Username", username);
-      newUser.put("Type", type);
+      // newUser.put("Type", type);
 
-      JSONObject role = new JSONObject();
-      role.put("Name", roleName);
-      newUser.put("Role", role);
+      // JSONObject role = new JSONObject();
+      // role.put("Name", roleName);
+      // newUser.put("Role", role);
 
       JSONTokener tokener = new JSONTokener(fis);
       JSONObject root = new JSONObject(tokener);
