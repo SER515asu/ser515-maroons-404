@@ -37,6 +37,16 @@ public class UserStory extends ScrumObject {
 
   private String developers;
 
+  public Double getSprintNumber() {
+    return sprintNumber;
+  }
+
+  public void setSprintNumber(Double sprintNumber) {
+    this.sprintNumber = sprintNumber;
+  }
+
+  private Double sprintNumber;
+
   // private ArrayList<Task> tasks;  TODO: implement tasks
 
   // private ArrayList<Task> tasks;  TODO: implement tasks
@@ -59,7 +69,8 @@ public class UserStory extends ScrumObject {
       double businessValue,
       String status,
       UserStory blockingUserStory,
-      String developers) {
+      String developers,
+      Double sprintNumber) {
     this.name = name;
     this.description = description;
     this.pointValue = pointValue;
@@ -67,6 +78,7 @@ public class UserStory extends ScrumObject {
     this.state = new UserStoryUnselectedState(this);
     this.developers = developers;
     this.status = status;
+    this.sprintNumber = sprintNumber;
     if ("blocker".equals(status)) {
       this.selectedBlockingUserStory = blockingUserStory;
     } else {
