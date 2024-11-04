@@ -1,7 +1,6 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.groupesan.project.java.scrumsimulator.mainpackage.impl.Developer;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.DeveloperStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryFactory;
@@ -32,7 +31,6 @@ public class App {
           }
         });
   }
-
 
   private void initializeDeveloperList() {
 
