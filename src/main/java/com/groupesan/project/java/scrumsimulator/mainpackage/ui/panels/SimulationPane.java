@@ -38,7 +38,7 @@ public class SimulationPane extends JFrame {
 
   /** The simulation Pane for adding new users. */
   public SimulationPane() {
-    setTitle("Simulation Status");
+    setTitle("Developer Details");
     setSize(400, 200);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

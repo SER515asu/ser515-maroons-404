@@ -2,7 +2,9 @@ package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.Player;
 import com.groupesan.project.java.scrumsimulator.mainpackage.core.ScrumRole;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.BlockerSolutionListStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.ProductBacklogStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.SolutionListValue;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationManager;
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.SimulationStateManager;
@@ -13,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +26,10 @@ public class DemoPane extends JFrame implements BaseComponent {
   public DemoPane() {
     this.init();
     player.doRegister();
+  }
+
+  public void updateRoleLabel(String role) {
+    welcomeLabel.setText("Hello " + role + "!");
   }
 
   /**
@@ -38,6 +45,8 @@ public class DemoPane extends JFrame implements BaseComponent {
     JPanel myJpanel = new JPanel();
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     myJpanel.setLayout(myGridbagLayout);
+    JButton blockerSetButton = new JButton("Blocker");
+    JButton solutionSetButton = new JButton("Solution");
 
     welcomeLabel = new JLabel();
     welcomeLabel.setText("Hello!");
@@ -45,8 +54,200 @@ public class DemoPane extends JFrame implements BaseComponent {
         welcomeLabel,
         new CustomConstraints(
             0, 0, GridBagConstraints.WEST, 1.0, 1.0, GridBagConstraints.HORIZONTAL));
+    JButton blockerProbability = new JButton("Fine Tune Selected Blocker's Probability");
+    JButton solutionProbability = new JButton("Fine Tune Selected Solution's Probability");
 
     JButton sprintsButton = new JButton("Sprints");
+    JLabel probabilityLabel = new JLabel("Probability");
+    JComboBox<String> blockerDropdown = new JComboBox<String>();
+    JComboBox<String> solutionDropdown = new JComboBox<String>();
+
+    JTextField probabilityField = new JTextField();
+    probabilityField.setEditable(false);
+    JLabel rangeLabel = new JLabel("Range (0-1)");
+    JTextField rangeField = new JTextField();
+
+    blockerDropdown.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            String selectedDropdownId =
+                blockerDropdown.getSelectedItem().toString().split("-")[0].strip();
+            for (UserStory userStory :
+                BlockerSolutionListStore.getInstance().getDefaultBlockerList().keySet()) {
+              if (userStory.getId().toString().equalsIgnoreCase(selectedDropdownId)) {
+                probabilityField.setText(
+                    BlockerSolutionListStore.getInstance()
+                        .getDefaultBlockerList()
+                        .get(userStory)
+                        .toString());
+                break;
+              }
+            }
+          }
+        });
+    blockerProbability.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            Double newRange = Double.valueOf(rangeField.getText());
+            Map<UserStory, Double> blockerList =
+                BlockerSolutionListStore.getInstance().getDefaultBlockerList();
+            for (UserStory userStory : blockerList.keySet()) {
+              if (userStory
+                  .getId()
+                  .toString()
+                  .equalsIgnoreCase(
+                      blockerDropdown.getSelectedItem().toString().split("-")[0].strip())) {
+                blockerList.put(userStory, newRange);
+                probabilityField.setText(newRange.toString());
+                break;
+              }
+            }
+            rangeField.setText("");
+          }
+        });
+
+    blockerSetButton.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setTitle("Fine tuning Blocker probability");
+            frame.setSize(500, 300);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridBagLayout());
+            JLabel listOfBlockers = new JLabel("Blocker");
+
+            for (UserStory userStory :
+                BlockerSolutionListStore.getInstance().getDefaultBlockerList().keySet()) {
+              blockerDropdown.addItem(userStory.getId() + "-" + userStory.getName());
+            }
+
+            panel.add(
+                listOfBlockers,
+                new CustomConstraints(
+                    0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                blockerDropdown,
+                new CustomConstraints(
+                    2, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                probabilityLabel,
+                new CustomConstraints(
+                    0, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                probabilityField,
+                new CustomConstraints(
+                    2, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                rangeLabel,
+                new CustomConstraints(
+                    0, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                rangeField,
+                new CustomConstraints(
+                    2, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                blockerProbability,
+                new CustomConstraints(
+                    1, 3, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            frame.setVisible(true);
+            frame.add(panel);
+          }
+        });
+    solutionDropdown.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            String selectedDropdownId =
+                solutionDropdown.getSelectedItem().toString().split("-")[0].strip();
+            for (UserStory userStory :
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList().keySet()) {
+              if (userStory.getId().toString().equalsIgnoreCase(selectedDropdownId)) {
+                probabilityField.setText(
+                    String.valueOf(
+                        BlockerSolutionListStore.getInstance()
+                            .getDefaultSolutionList()
+                            .get(userStory)
+                            .getProbability()));
+                break;
+              }
+            }
+          }
+        });
+    solutionProbability.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            Double newRange = Double.valueOf(rangeField.getText());
+            Map<UserStory, SolutionListValue> solutionList =
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList();
+            for (UserStory userStory : solutionList.keySet()) {
+              if (userStory
+                  .getId()
+                  .toString()
+                  .equalsIgnoreCase(
+                      solutionDropdown.getSelectedItem().toString().split("-")[0].strip())) {
+                SolutionListValue solutionListValue = solutionList.get(userStory);
+                solutionListValue.setProbability(newRange);
+                solutionList.put(userStory, solutionListValue);
+                probabilityField.setText(newRange.toString());
+                break;
+              }
+            }
+            rangeField.setText("");
+          }
+        });
+
+    solutionSetButton.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+
+            JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setTitle("Fine tuning Solution probability");
+            frame.setSize(500, 300);
+
+            JPanel panel = new JPanel();
+            panel.setLayout(new GridBagLayout());
+            JLabel listOfSolution = new JLabel("Solution");
+
+            for (UserStory userStory :
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList().keySet()) {
+              solutionDropdown.addItem(userStory.getId() + "-" + userStory.getName());
+            }
+
+            panel.add(
+                listOfSolution,
+                new CustomConstraints(
+                    0, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                solutionDropdown,
+                new CustomConstraints(
+                    2, 0, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                probabilityLabel,
+                new CustomConstraints(
+                    0, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                probabilityField,
+                new CustomConstraints(
+                    2, 1, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                rangeLabel,
+                new CustomConstraints(
+                    0, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                rangeField,
+                new CustomConstraints(
+                    2, 2, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            panel.add(
+                solutionProbability,
+                new CustomConstraints(
+                    1, 3, GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL));
+            frame.setVisible(true);
+            frame.add(panel);
+          }
+        });
     sprintsButton.addActionListener(
         new ActionListener() {
           @Override
@@ -114,12 +315,18 @@ public class DemoPane extends JFrame implements BaseComponent {
             twoButtonWindow.setLayout(new GridLayout(1, 2, 10, 10));
             twoButtonWindow.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+            // Trigger the java method to auto populate the blocker and solution list
+            BlockerSolutionListStore.getInstance().populateDefaultList();
+
             // Two buttons for the window
             JLabel label =
                 new JLabel("Please select from the available choices to configure probability.\n");
 
-            JButton blockerSetButton = new JButton("Blocker");
-            JButton solutionSetButton = new JButton("Solution");
+            // Populate the screen dropdown from backend
+            Map<UserStory, Double> blockerList =
+                BlockerSolutionListStore.getInstance().getDefaultBlockerList();
+            Map<UserStory, SolutionListValue> solutionList =
+                BlockerSolutionListStore.getInstance().getDefaultSolutionList();
 
             twoButtonWindow.add(label);
             twoButtonWindow.add(blockerSetButton);
