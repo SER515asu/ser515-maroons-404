@@ -1,4 +1,3 @@
-
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui;
 
 import com.formdev.flatlaf.FlatLightLaf;
