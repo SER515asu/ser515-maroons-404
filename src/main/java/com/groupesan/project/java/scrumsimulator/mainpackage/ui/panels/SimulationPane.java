@@ -35,9 +35,10 @@ public class SimulationPane {
 
   /** The simulation Pane for adding new users. */
   public SimulationPane() {
+
     JFrame frame = new JFrame();
     windowWidth = String.valueOf(300);
-    frame.setTitle("Simulation Status");
+    frame.setTitle("Developer Details");
     frame.setSize(Integer.parseInt(windowWidth), 270);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
