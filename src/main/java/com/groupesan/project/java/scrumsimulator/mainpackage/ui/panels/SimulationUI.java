@@ -47,7 +47,6 @@ public class SimulationUI extends JFrame implements BaseComponent {
       if (selectedSimulation != null) {
         this.selectedSimulationId = selectedSimulation.split(" - ")[1];
       }
-
       selectUserRole();
     }
   }
@@ -73,8 +72,6 @@ public class SimulationUI extends JFrame implements BaseComponent {
 
     // Make the RoleSelectionPane stay on top
     roleSelectionPane.setAlwaysOnTop(true);
-
-    roleSelectionPane.setVisible(true);
   }
 
   /**
@@ -107,13 +104,14 @@ public class SimulationUI extends JFrame implements BaseComponent {
    */
   @Override
   public void init() {
-    setTitle("Simulation");
-    setSize(400, 300);
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    panel = new JPanel();
-    panel.add(new JLabel("Please select an active Simulation, then a role to join the Simulation"));
-    setContentPane(panel);
-    setVisible(true); // Make the UI visible first
+    //    setTitle("Simulation");
+    //    setSize(400, 300);
+    //    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    //    panel = new JPanel();
+    //    panel.add(new JLabel("Please select an active Simulation, then a role to join the
+    // Simulation"));
+    //    setContentPane(panel);
+    //    setVisible(true); // Make the UI visible first
     selectSimulation(); // Then start the simulation selection process
   }
 }
