@@ -27,7 +27,8 @@ public class SpikeStory {
             blockedUserStory.getBusinessValue(),
             "in progress",
             null,
-            developers.toString());
+            developers.toString(),
+            blockedUserStory.getSprintNumber());
     userStory.doRegister();
     UserStoryStore.getInstance().addUserStory(userStory);
   }

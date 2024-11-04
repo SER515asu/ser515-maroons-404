@@ -70,10 +70,10 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         (userStory.getBlockingUserStory() != null
                 && userStory.getBlockingUserStory().getName() != null)
             ? userStory.getBlockingUserStory().getName()
-            : "No blocking user story"; // or any default message you prefer
+            : "N/A"; // or any default message you prefer
 
     blocking_us = new JLabel(blockingUserStoryName);
-    sprint_number = new JLabel(Double.toString(userStory.getPointValue()));
+    sprint_number = new JLabel(Double.toString(userStory.getSprintNumber()));
     sprint_number.addMouseListener(openEditDialog);
 
     GridBagLayout myGridBagLayout = new GridBagLayout();
@@ -104,14 +104,14 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         developer,
         new CustomConstraints(
             5, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
-    add(
-        blocking_us,
-        new CustomConstraints(
-            5, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
 
     add(
         sprint_number,
         new CustomConstraints(
             6, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        blocking_us,
+        new CustomConstraints(
+            7, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
   }
 }
