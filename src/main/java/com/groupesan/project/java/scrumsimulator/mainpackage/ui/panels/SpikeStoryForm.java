@@ -1,29 +1,25 @@
 package com.groupesan.project.java.scrumsimulator.mainpackage.ui.panels;
 
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.DeveloperStore;
+import com.groupesan.project.java.scrumsimulator.mainpackage.impl.SpikeStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStory;
 import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore;
 import com.groupesan.project.java.scrumsimulator.mainpackage.utils.CustomConstraints;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class SpikeStoryForm extends JFrame {
 
   Double[] effortPointsList = {1.0, 2.0, 3.0, 5.0, 8.0, 11.0, 19.0, 30.0, 49.0};
+  UserStoryListPane parentWindow;
 
-  public SpikeStoryForm() {
+  public SpikeStoryForm(UserStoryListPane userStoryListPane) {
+    parentWindow = userStoryListPane;
     this.init();
   }
 
@@ -37,28 +33,23 @@ public class SpikeStoryForm extends JFrame {
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setTitle("Spike Story");
     setSize(500, 200);
-
+    setLocationRelativeTo(null);
     GridBagLayout myGridbagLayout = new GridBagLayout();
     JPanel myJpanel = new JPanel();
     myJpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
     myJpanel.setLayout(myGridbagLayout);
 
     developerNameField = new JPopupMenu();
-    List<String> devList = new ArrayList<>();
-    devList.add("rachana");
-    devList.add("rachit");
-    devList.add("Pavan");
-    devList.add("Dheemanth");
-    devList.add("Ritu");
-    for (String developerName : devList) {
+
+    for (String developerName : DeveloperStore.getInstance().getDeveloperList()) {
       JCheckBox jCheckBox = new JCheckBox(developerName);
       developerNameField.add(jCheckBox);
     }
     JLabel developerLabel = new JLabel("Developers Working:");
     JLabel effortPointsLabel = new JLabel("Effort Points:");
-    JLabel blockingStoryLabel = new JLabel("Select Blocking Story:");
+    JLabel blockingStoryLabel = new JLabel("Select Blocked Story:");
 
-    JButton dropdownButton = new JButton("Select Options");
+    JButton dropdownButton = new JButton("Select Developers");
     dropdownButton.addActionListener(
         new ActionListener() {
           @Override
@@ -108,7 +99,27 @@ public class SpikeStoryForm extends JFrame {
             dispose();
           }
         });
-    submitButton.addActionListener(e -> handleSubmit());
+    List<String> spikeDeveloperList = new ArrayList<>();
+    submitButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            for (Component component : developerNameField.getComponents()) {
+              if (component instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) component;
+                if (checkBox.isSelected()) {
+                  spikeDeveloperList.add(checkBox.getText());
+                }
+              }
+            }
+            Double selectedEffortPoint = (Double) effortPointsCombo.getSelectedItem();
+            String userStory = (String) blockingStoryCombo.getSelectedItem();
+            SpikeStory.createSpikeStory(spikeDeveloperList, selectedEffortPoint, userStory);
+            JOptionPane.showMessageDialog(null, "Spike story created successfully");
+            parentWindow.closeWindow();
+            dispose();
+          }
+        });
     myJpanel.add(
         buttonPanel,
         new CustomConstraints(0, 3, GridBagConstraints.CENTER, GridBagConstraints.NONE));
@@ -120,10 +131,5 @@ public class SpikeStoryForm extends JFrame {
     UserStoryStore userStoryStore = UserStoryStore.getInstance();
     List<UserStory> userStories = userStoryStore.getUserStories();
     return userStories.stream().map(UserStory::getName).toArray(String[]::new);
-  }
-
-  private void handleSubmit() {
-
-    dispose();
   }
 }
