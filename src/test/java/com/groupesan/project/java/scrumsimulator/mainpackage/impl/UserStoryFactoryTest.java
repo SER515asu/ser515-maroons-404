@@ -13,7 +13,8 @@ public class UserStoryFactoryTest {
     UserStoryFactory factory = UserStoryFactory.getInstance();
 
     // Act
-    UserStory userStory = factory.createNewUserStory("Story", "Description", 5.0, 15.0, "new");
+    UserStory userStory =
+        factory.createNewUserStory("Story", "Description", 5.0, 15.0, "new", null, null);
 
     // Assert
     assertNotNull(userStory);
@@ -30,7 +31,8 @@ public class UserStoryFactoryTest {
     UserStoryFactory factory = UserStoryFactory.getInstance();
 
     // Act
-    UserStory userStory = factory.createNewUserStory("Edge Case", "High Value", 5.0, 1000.0, "new");
+    UserStory userStory =
+        factory.createNewUserStory("Edge Case", "High Value", 5.0, 1000.0, "new", null, null);
 
     // Assert
     assertNotNull(userStory);
