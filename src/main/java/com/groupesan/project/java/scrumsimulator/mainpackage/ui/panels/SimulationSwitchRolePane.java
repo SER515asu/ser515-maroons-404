@@ -20,7 +20,7 @@ public class SimulationSwitchRolePane extends JFrame {
   private JButton switchButton;
 
   public SimulationSwitchRolePane() {
-    setTitle("Simulation Status");
+    setTitle("Switch Role");
     setSize(400, 200);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

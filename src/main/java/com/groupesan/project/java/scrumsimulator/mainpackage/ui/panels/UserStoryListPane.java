@@ -86,6 +86,21 @@ public class UserStoryListPane extends JFrame implements BaseComponent {
         new CustomConstraints(
             0, 1, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
 
+    // Create the "Create Spike Story" button
+    JButton createSpikeStoryButton = new JButton("Create Spike Story");
+    createSpikeStoryButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            SpikeStoryForm spikeForm = new SpikeStoryForm();
+            spikeForm.setVisible(true);
+          }
+        });
+    myJpanel.add(
+        createSpikeStoryButton,
+        new CustomConstraints(
+            0, 2, GridBagConstraints.WEST, 1.0, 0.2, GridBagConstraints.HORIZONTAL));
+
     add(myJpanel);
   }
 
