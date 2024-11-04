@@ -17,10 +17,12 @@ public class UserStoryTest {
   public void setup() {
     myUserStory =
         UserStoryFactory.getInstance()
-            .createNewUserStory("predefinedUS1", "description1", 1.0, 1.0, "in progress");
+            .createNewUserStory(
+                "predefinedUS1", "description1", 1.0, 1.0, "in progress", null, null);
 
-    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "new", null);
-    newUserStory = new UserStory("Blocking Story", "Description", 5.0, 8.0, "blocker", null);
+    userStory = new UserStory("User Story 1", "Description", 5.0, 8.0, "new", null, null, null);
+    newUserStory =
+        new UserStory("Blocking Story", "Description", 5.0, 8.0, "blocker", null, null, null);
   }
 
   @Test

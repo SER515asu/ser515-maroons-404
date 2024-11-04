@@ -10,7 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class UserStoryWidget extends JPanel implements BaseComponent {
 
@@ -19,6 +20,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
   JLabel name;
   JLabel desc;
   JLabel status;
+  JLabel developer;
   JLabel blocking_us;
   JLabel sprint_number;
 
@@ -63,14 +65,15 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     desc = new JLabel(userStory.getDescription());
     desc.addMouseListener(openEditDialog);
     status = new JLabel(userStory.getStatus());
+    developer = new JLabel(userStory.getDevelopers());
     String blockingUserStoryName =
         (userStory.getBlockingUserStory() != null
                 && userStory.getBlockingUserStory().getName() != null)
             ? userStory.getBlockingUserStory().getName()
-            : "No blocking user story"; // or any default message you prefer
+            : "N/A"; // or any default message you prefer
 
     blocking_us = new JLabel(blockingUserStoryName);
-    sprint_number = new JLabel(Double.toString(userStory.getPointValue()));
+    sprint_number = new JLabel(Double.toString(userStory.getSprintNumber()));
     sprint_number.addMouseListener(openEditDialog);
 
     GridBagLayout myGridBagLayout = new GridBagLayout();
@@ -98,7 +101,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         new CustomConstraints(
             4, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
     add(
-        blocking_us,
+        developer,
         new CustomConstraints(
             5, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
 
@@ -106,5 +109,9 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         sprint_number,
         new CustomConstraints(
             6, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        blocking_us,
+        new CustomConstraints(
+            7, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
   }
 }
