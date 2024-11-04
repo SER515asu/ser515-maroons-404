@@ -19,7 +19,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
   JLabel name;
   JLabel desc;
   JLabel status;
-
+  JLabel developer;
   // TODO: This is a non transient field and this class is supposed to be serializable. this needs
   // to be dealt with before this object can be serialized
   private UserStory userStory;
@@ -61,7 +61,7 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
     desc = new JLabel(userStory.getDescription());
     desc.addMouseListener(openEditDialog);
     status = new JLabel(userStory.getStatus());
-
+    developer = new JLabel(userStory.getDevelopers());
     GridBagLayout myGridBagLayout = new GridBagLayout();
 
     setLayout(myGridBagLayout);
@@ -86,5 +86,9 @@ public class UserStoryWidget extends JPanel implements BaseComponent {
         status,
         new CustomConstraints(
             4, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
+    add(
+        developer,
+        new CustomConstraints(
+            5, 0, GridBagConstraints.WEST, 0.7, 0.0, GridBagConstraints.HORIZONTAL));
   }
 }

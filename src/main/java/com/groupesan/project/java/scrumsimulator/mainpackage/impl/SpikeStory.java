@@ -7,6 +7,10 @@ public class SpikeStory {
   public static void createSpikeStory(
       List<String> developerList, Double pointsValue, String userStoryName) {
     UserStory blockedUserStory = null;
+    StringBuilder developers = new StringBuilder();
+    for (String developer : developerList) {
+      developers.append(developer).append(",");
+    }
     for (UserStory userStoryLoop : UserStoryStore.getInstance().getUserStories()) {
       if (userStoryLoop.getName().equalsIgnoreCase(userStoryName)) {
         blockedUserStory = userStoryLoop;
@@ -22,7 +26,8 @@ public class SpikeStory {
             pointsValue,
             blockedUserStory.getBusinessValue(),
             "in progress",
-            null);
+            null,
+            developers.toString());
     userStory.doRegister();
     UserStoryStore.getInstance().addUserStory(userStory);
   }
