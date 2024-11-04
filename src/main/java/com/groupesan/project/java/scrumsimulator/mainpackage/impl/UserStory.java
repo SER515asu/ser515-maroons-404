@@ -25,9 +25,12 @@ public class UserStory extends ScrumObject {
 
   private String status;
 
+  private UserStory selectedBlockingUserStory;
+
   // private ArrayList<Task> tasks;  TODO: implement tasks
 
   // private ArrayList<Task> tasks;  TODO: implement tasks
+
   /**
    * Creates a user story.
    *
@@ -40,13 +43,23 @@ public class UserStory extends ScrumObject {
    * @param status the status for the user story
    */
   public UserStory(
-      String name, String description, double pointValue, double businessValue, String status) {
+      String name,
+      String description,
+      double pointValue,
+      double businessValue,
+      String status,
+      UserStory blockingUserStory) {
     this.name = name;
     this.description = description;
     this.pointValue = pointValue;
     this.businessValue = businessValue;
     this.state = new UserStoryUnselectedState(this);
     this.status = status;
+    if ("blocker".equals(status)) {
+      this.selectedBlockingUserStory = blockingUserStory;
+    } else {
+      this.selectedBlockingUserStory = null;
+    }
   }
 
   protected void register() {
@@ -154,6 +167,7 @@ public class UserStory extends ScrumObject {
   }
 
   // State Management, need Player class to implement final selection logic
+
   /**
    * Change the state of this UserStory. Usually called when a Player picks up the task or finishes
    * it.
@@ -170,6 +184,17 @@ public class UserStory extends ScrumObject {
 
   public void setStatus(String status) {
     this.status = status;
+    if (!"blocker".equals(status)) {
+      this.selectedBlockingUserStory = null;
+    }
+  }
+
+  public UserStory getBlockingUserStory() {
+    return selectedBlockingUserStory;
+  }
+
+  public void setBlockingUserStory(UserStory blockingUserStory) {
+    this.selectedBlockingUserStory = blockingUserStory;
   }
 
   /**

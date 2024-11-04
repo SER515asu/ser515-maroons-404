@@ -5,6 +5,7 @@ import com.groupesan.project.java.scrumsimulator.mainpackage.impl.UserStoryStore
 import com.groupesan.project.java.scrumsimulator.mainpackage.state.UserStoryStateManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -12,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class UpdateUserStoryPanel extends JFrame {
@@ -90,34 +90,27 @@ public class UpdateUserStoryPanel extends JFrame {
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
+            // else selectedBlockingUserStory = null;
             String selectedUserStory = (String) userStoryComboBox.getSelectedItem();
-            System.out.println(selectedUserStory);
             String selectedStatus = (String) statusComboBox.getSelectedItem();
-            System.out.println(selectedStatus);
+            String selectedBlockingUserStory = (String) blockingUserStoryComboBox.getSelectedItem();
+            // logic to update status of blocked userstory
             if (selectedUserStory != null && selectedStatus != null) {
-              int userStoryId =
-                  Integer.parseInt(selectedUserStory.split(":")[0].split("#")[1].strip());
-              if ("blocker".equals(selectedStatus)) {
-                String selectedBlockingUserStory =
-                    (String) blockingUserStoryComboBox.getSelectedItem();
-                System.out.println(selectedBlockingUserStory);
-                if (selectedBlockingUserStory == null
-                    || selectedBlockingUserStory.trim().isEmpty()) {
-                  JOptionPane.showMessageDialog(
-                      panel,
-                      "Please select a Blocking User Story",
-                      "Validation Error",
-                      JOptionPane.ERROR_MESSAGE);
-                  System.out.println("Add a Blocking User Story to proceed");
-                  return;
-                }
-              } // else selectedBlockingUserStory = null;
-              UserStoryStateManager.updateUserStoryStatus(userStoryId, selectedStatus);
+              try {
+                UserStoryStateManager.updateUserStoryStatus(
+                    selectedUserStory,
+                    selectedStatus,
+                    selectedBlockingUserStory,
+                    panel,
+                    selectedStatus);
+              } catch (IOException ex) {
+                throw new RuntimeException(ex);
+              }
               JOptionPane.showMessageDialog(null, "Status updated successfully!");
-              dispose();
             } else {
               JOptionPane.showMessageDialog(null, "Please select a User Story and Status");
             }
+            dispose();
           }
         });
   }

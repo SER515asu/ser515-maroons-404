@@ -26,11 +26,11 @@ public class ProductBacklogStoreTest {
     try (MockedStatic<UserStoryStore> mockedStore = mockStatic(UserStoryStore.class)) {
       UserStoryStore mockUserStoryStore = mock(UserStoryStore.class);
       List<UserStory> userstorieslist = new ArrayList<UserStory>();
-      UserStory userstory1 = new UserStory("XYZ", "ABC", 2.0, 1.0, "new");
+      UserStory userstory1 = new UserStory("XYZ", "ABC", 2.0, 1.0, "new", null);
       userstory1.doRegister();
 
       UserStory userstory2 =
-          new UserStory("Rachana Rocks", "That is not true", 2.0, 3.0, "completed");
+          new UserStory("Rachana Rocks", "That is not true", 2.0, 3.0, "completed", null);
       userstory2.doRegister();
       userstorieslist.add(userstory1);
       userstorieslist.add(userstory2);
